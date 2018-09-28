@@ -1,3 +1,6 @@
+/*This class creates a JPanel with the main part of the UI
+ * Written by Matthew Bohr
+ *  */
 import javax.swing.*;
 
 public class NodeEntryUIPanel extends JPanel {
