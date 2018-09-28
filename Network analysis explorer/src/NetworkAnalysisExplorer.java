@@ -1,6 +1,7 @@
+import javax.swing.JApplet;
 
-public class NetworkAnalysisExplorer {
-	public static void main(String args[]) {
+public class NetworkAnalysisExplorer extends JApplet {
+	public void init(){
 		
 		
 	}
