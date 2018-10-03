@@ -4,7 +4,7 @@ public class NodeList
 {
 		private static NodeList instance = null;
 		
-	   	private ArrayList<Node> list = new ArrayList<Node>();
+	   	public ArrayList<Node> list = new ArrayList<Node>();
 	   	
 	   	
 		private NodeList() 
