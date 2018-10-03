@@ -2,7 +2,8 @@ import java.util.ArrayList;
 
 /*This class represents a node
  * Written by Jacob Baca
- * Last edited by Michael St Onge
+ * edited by Michael St Onge
+ * Last edited by John Shaeffer
  *  */
 
 public class Node {
@@ -10,6 +11,7 @@ public class Node {
 	private int duration;
 	private ArrayList<Node> dependencies;
 	private ArrayList<Node> ancestors;
+	private ArrayList<String> strDependencies; //necessary for checking that dependency exists
 	private boolean head;
 	
 	public Node(String activityName, int duration)
@@ -19,7 +21,7 @@ public class Node {
 		this.head = true;
 	}
 	
-	public Node(String activityName, int duration, ArrayList<Node> dependencies)
+	public Node(String activityName, int duration, ArrayList<String> strDependencies)
 	{
 		this.activityName = activityName;
 		this.duration = duration;
