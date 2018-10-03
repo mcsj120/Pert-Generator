@@ -6,7 +6,10 @@ import javax.swing.*;
 public class NetworkAnalysisExplorer extends JApplet {
 	public void init(){
 		NodeEntryUIPanel mNodeEntryUIPanel=new NodeEntryUIPanel();
-		getContentPane().add(mNodeEntryUIPanel);
+		JFrame mFrame=new JFrame();
+		mFrame.getContentPane().add(mNodeEntryUIPanel);
+		mFrame.setSize(300, 500);
+		mFrame.setVisible(true);
 		
 		
 	}
