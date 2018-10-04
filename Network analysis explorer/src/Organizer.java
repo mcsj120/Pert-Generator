@@ -9,6 +9,7 @@ public class Organizer
     private ArrayList<PathData> pathList; 
     private NodeList list;
     private boolean valid;
+    private static int index;
     
     public Organizer(NodeList list)
     {
@@ -99,4 +100,46 @@ public class Organizer
 		this.list = list;
 	}
 
+	public void recursiveStartPath()
+	{
+		ArrayList<Node> heads = list.getHeads();
+		ArrayList<PathData> paths = new ArrayList<PathData>();
+		for(Node head : heads)
+		{
+			ArrayList<PathData> individualPaths = new ArrayList<PathData>();
+			index = -1;
+			paths.addAll(getPaths(head, individualPaths));
+		}
+		this.pathList = paths;
+	}
+	
+	private ArrayList<PathData> getPaths(Node head, ArrayList<PathData> paths)
+	{
+		if(index == -1)
+		{
+			ArrayList<Node> headList = new ArrayList<Node>();
+			headList.add(head);
+			PathData headPath = new PathData(headList);
+			paths.add(headPath);
+			index++;
+		}
+		ArrayList<Node> ancestors = head.getAncestors();
+		if(ancestors.size()>0)
+		{
+			PathData data = paths.get(index);
+			paths.remove(index);
+			for(int i = 0; i < ancestors.size();i++)
+			{	
+				PathData dependPath = new PathData(null);
+				for(Node x: data.path)
+				{
+					dependPath.path.add(x);
+				}
+				dependPath.path.add(ancestors.get(index+i));
+				paths.addAll(getPaths(ancestors.get(index+i), paths));
+			}
+		}
+		index++;
+		return paths;
+	}
 }
