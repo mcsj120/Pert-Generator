@@ -57,4 +57,24 @@ public class Node {
 	{
 		this.ancestors = ancestors;
 	}
+
+	public boolean headValue() 
+	{
+		return head;
+	}
+
+	public void setHead(boolean head) 
+	{
+		this.head = head;
+	}
+
+	public ArrayList<String> getStrDependencies() 
+	{
+		return strDependencies;
+	}
+
+	public void setStrDependencies(ArrayList<String> strDependencies) 
+	{
+		this.strDependencies = strDependencies;
+	}
 }
