@@ -8,7 +8,7 @@ public class PathData
 	public ArrayList<Node> path;
 	public int duration;
 	
-	public PathData(ArrayList<Node> path, int duration)
+	public PathData(ArrayList<Node> path)
 	{
 		this.path = path;
 	}

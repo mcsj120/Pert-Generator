@@ -6,7 +6,6 @@ public class NodeList
 		
 	   	public ArrayList<Node> list = new ArrayList<Node>();
 	   	
-	   	
 		private NodeList() 
 	   	{ 
 	         
@@ -52,5 +51,18 @@ public class NodeList
 	    public void addToList(Node task)
 	    {
 	    	list.add(task);
+	    }
+	    
+	    public ArrayList<Node> getHeads()
+	    {
+	    	ArrayList<Node> heads = new ArrayList<Node>();
+	    	for(Node x: this.list)
+	    	{
+	    		if(x.headValue() == true)
+	    		{
+	    			heads.add(x);
+	    		}
+	    	}
+	    	return heads;
 	    }
 }
