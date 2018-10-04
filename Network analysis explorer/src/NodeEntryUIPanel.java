@@ -5,6 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -97,7 +100,98 @@ public class NodeEntryUIPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent action) {
-			// TODO Auto-generated method stub
+			/*
+			 * Because NodeList is a singleton, this will return the NodeList in the init method
+			 */
+			NodeList list = NodeList.getInstance();
+			/*
+			 * If the input represents an invalid Node, this variable is set to true, which allows us to
+			 * show an error UI at the end;
+			 */
+			boolean invalidNode = false;
+			/*
+			 * Because we know that the nodeDependencies field will be editable if it is not a 
+			 * head, we can use that to determine which constructor to use
+			 */
+			Node addedNode = null;
+			if (nodeDependencies.isEditable()) {
+				/*
+				 * Tests to make sure all necessary field have been filled
+				 */
+				if(nodeDependencies.getText().length()==0 || nodeDuration.getText().length()==0 || nodeName.getText().length()==0)
+				{
+					invalidNode = true;
+				}
+				else
+				{
+					/*
+					 * Parses the dependencies into an ArrayList
+					 */
+					ArrayList<String> nodes = new ArrayList<String>(Arrays.asList(nodeDependencies.getText().split(",")));
+					String name = nodeName.getText();
+					/*
+					 * For each loop to verify nodeDuration stores a number
+					 */
+					for (char number : nodeDuration.getText().toCharArray())
+				    {
+				        if (!Character.isDigit(number))
+				        {
+				        	invalidNode = true;
+				        }
+				    }
+					/*
+					 * If node duration stores a number creates a new node
+					 */
+					if(!invalidNode)
+					{
+						int duration = Integer.parseInt(nodeDuration.getText());
+						addedNode = new Node(name, duration, nodes);
+					}
+				}
+			} 
+			else 
+			{
+				if(nodeDuration.getText().length()==0 || nodeName.getText().length()==0)
+				{
+					invalidNode = true;
+				}
+				else
+				{
+					String name = nodeName.getText();
+					/*
+					 * For each loop to verify nodeDuration stores a number
+					 */
+					for (char number : nodeDuration.getText().toCharArray())
+				    {
+				        if (!Character.isDigit(number))
+				        {
+				        	invalidNode = true;
+				        }
+				    }
+					/*
+					 * If node duration stores a number creates a new node
+					 */
+					if(!invalidNode)
+					{
+						int duration = Integer.parseInt(nodeDuration.getText());
+						addedNode = new Node(name, duration);
+					}
+				}
+			}
+			if(!invalidNode && addedNode != null) 
+			{
+				list.addToList(addedNode);
+			}
+			else
+			{
+				//Code to show UI indicating an error in entering the Node
+			}
+			nodeDuration.setText("");
+			nodeName.setText("");
+			if(nodeDependencies.isEditable())
+			{
+				nodeDependencies.setText("");
+			}
 
 		}
 
