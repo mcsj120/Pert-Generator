@@ -42,7 +42,7 @@ public class Organizer
 
     public Organizer(NodeList list)
     {
-        
+        this.list = list;
     }
 
 }
