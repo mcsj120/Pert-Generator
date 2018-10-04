@@ -25,7 +25,7 @@ public class Node {
 	{
 		this.activityName = activityName;
 		this.duration = duration;
-		this.dependencies = dependencies;
+		this.strDependencies = strDependencies;
 		this.head = false;
 	}
 	
