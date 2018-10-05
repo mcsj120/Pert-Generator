@@ -131,14 +131,15 @@ public class Organizer
 			//paths.remove(index);
 			for(int i = 0; i < ancestors.size();i++)
 			{	
-				PathData dependPath = new PathData(null);
+				ArrayList<Node> empty = new ArrayList<Node>();
+				PathData dependPath = new PathData(empty);
 				for(Node x: data.path)
 				{
 					dependPath.path.add(x);
 				}
 				dependPath.path.add(ancestors.get(index+i));
-				paths.addAll(dependPath);
-				getPaths(ancestors.get(index+i), path));
+				paths.add(dependPath);
+				getPaths(ancestors.get(index+i), paths);
 				index++;
 			}
 		}
