@@ -108,12 +108,13 @@ public class Organizer
 		{
 			ArrayList<PathData> individualPaths = new ArrayList<PathData>();
 			index = -1;
-			paths.addAll(getPaths(head, individualPaths));
+			getPaths(head, individualPaths);
+			paths.addAll(individualPaths);
 		}
 		this.pathList = paths;
 	}
 	
-	private ArrayList<PathData> getPaths(Node head, ArrayList<PathData> paths)
+	private void getPaths(Node head, ArrayList<PathData> paths)
 	{
 		if(index == -1)
 		{
@@ -126,8 +127,8 @@ public class Organizer
 		ArrayList<Node> ancestors = head.getAncestors();
 		if(ancestors.size()>0)
 		{
-			PathData data = paths.get(index);
-			paths.remove(index);
+			PathData data = paths.remove(index);
+			//paths.remove(index);
 			for(int i = 0; i < ancestors.size();i++)
 			{	
 				PathData dependPath = new PathData(null);
@@ -136,10 +137,10 @@ public class Organizer
 					dependPath.path.add(x);
 				}
 				dependPath.path.add(ancestors.get(index+i));
-				paths.addAll(getPaths(ancestors.get(index+i), paths));
+				paths.addAll(dependPath);
+				getPaths(ancestors.get(index+i), path));
+				index++;
 			}
 		}
-		index++;
-		return paths;
 	}
 }
