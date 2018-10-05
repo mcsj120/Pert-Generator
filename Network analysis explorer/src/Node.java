@@ -14,6 +14,10 @@ public class Node {
 	private ArrayList<String> strDependencies; //necessary for checking that dependency exists
 	private boolean head;
 	
+	public Node()
+	{
+		
+	}
 	public Node(String activityName, int duration)
 	{
 		this.activityName = activityName;
@@ -32,6 +36,11 @@ public class Node {
 	public String getName()
 	{
 		return this.activityName;
+	}
+	
+	public void setName(String name)
+	{
+		this.activityName = name;
 	}
 	
 	public int getDuration()
