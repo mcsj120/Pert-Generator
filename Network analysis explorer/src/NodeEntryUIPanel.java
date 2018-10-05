@@ -76,9 +76,14 @@ public class NodeEntryUIPanel extends JPanel {
 		nodeName.setEditable(true);
 		nodeDuration.setEditable(true);
 		nodeDependencies.setEditable(true);
+		//Add event listeners
 		isStartingNode.addItemListener(new StartingNodeListener());
 		addNode.addActionListener(new AddNodeListener());
 		analyze.addActionListener(new AnalyzeListener());
+		about.addActionListener(new AboutListener());
+		help.addActionListener(new HelpListener());
+		restart.addActionListener(new RestartListener());
+		exit.addActionListener(new QuitListener());
 		
 		
 	};
@@ -180,11 +185,16 @@ public class NodeEntryUIPanel extends JPanel {
 			}
 			if(!invalidNode && addedNode != null) 
 			{
+				//Node gets added
 				list.addToList(addedNode);
+				JOptionPane.showMessageDialog(null,"Added node"+addedNode.getName()+"with duration"+addedNode.getDuration(), "Node added",JOptionPane.PLAIN_MESSAGE);
 			}
 			else
 			{
-				//Code to show UI indicating an error in entering the Node
+				if(invalidNode) {
+					JOptionPane.showMessageDialog(null,"Could not add node because the node did not have a valid name or duration","Node not added",JOptionPane.ERROR_MESSAGE);			
+				}
+				
 			}
 			nodeDuration.setText("");
 			nodeName.setText("");
@@ -201,6 +211,44 @@ public class NodeEntryUIPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent action) {
 			// TODO Auto-generated method stub
+
+		}
+
+	}
+	public class AboutListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent action) {
+			JOptionPane.showMessageDialog(null,"Built by CSE360 Group 1: Jacob Baca, Matthew Bohr, John Shaeffer, Michael St. Orange","About",JOptionPane.PLAIN_MESSAGE);
+
+		}
+
+	}
+	public class HelpListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent action) {
+			JOptionPane.showMessageDialog(null,"Need help? In your internet browser, go to https://goo.gl/zJYWGg","Help",JOptionPane.PLAIN_MESSAGE);
+
+		}
+
+	}
+	public class RestartListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent action) {
+			JOptionPane.showMessageDialog(null,"Are you sure you want to restart?","Restart",JOptionPane.PLAIN_MESSAGE);
+
+
+		}
+
+	}
+	public class QuitListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent action) {
+			JOptionPane.showMessageDialog(null,"Are you sure you want to quit?","Quit",JOptionPane.PLAIN_MESSAGE);
+
 
 		}
 
