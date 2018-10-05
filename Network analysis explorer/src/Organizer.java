@@ -16,9 +16,38 @@ public class Organizer
         this.setList(list);
     }
 
-    public void errorDependencyCheck()
-    {
-        //checking to make sure the strings they said are depency match to what they said
+    public void checkDependencies() {
+    	ArrayList<Node> nodeList = this.list.getNodeList();
+    	for(int i = 0; i < nodeList.size();i++) {
+    		Node n = nodeList.get(i);
+    		//if node is not a startNode
+    		if(!n.headValue()) {
+    			//check through all dependencies
+    			for(int j = 0; j < n.getDependencies().size();j++) {
+    				Node n2 = n.getDependencies().get(j);
+    				// if a dependency is not in the nodeList return error
+    				if(!nodeList.contains(n2)) {
+    					System.out.println("Dependency " + n2.toString() + " of " + n.toString() + " does not exist");
+    					// error for dependency not in nodeList
+    		
+    				}
+    			}
+    		}
+    	}
+    }
+    
+    //this checks that all nodes are connected to each other
+    public void allNodesConnectedCheck() {
+    	ArrayList<Node> nodeList = this.list.getNodeList();
+    	//cycles through all nodes in nodeList
+    	for(int i = 0; i < nodeList.size(); i++) {
+    		Node n = nodeList.get(i);
+    		//if node is not a startNode and nodeList does not contain
+    		// the node is unconnected
+    		if(!n.headValue() || n.getDependencies().size() == 0) {
+    			System.out.println("Node " + n.toString() + " is not connected to other nodes.");
+    		}
+    	}
     }
     
     public void errorCircular()
