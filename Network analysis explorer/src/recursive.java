@@ -55,7 +55,7 @@ class recursive {
 		C.setAncestors(cAncest);
 		
 		dAncest.add(E);
-		C.setAncestors(cAncest);
+		D.setAncestors(dAncest);
 		
 		E.setAncestors(eAncest);
 		

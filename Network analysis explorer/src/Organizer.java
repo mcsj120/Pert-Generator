@@ -137,11 +137,14 @@ public class Organizer
 				{
 					dependPath.path.add(x);
 				}
-				dependPath.path.add(ancestors.get(index+i));
+				dependPath.path.add(ancestors.get(i));
 				paths.add(dependPath);
-				getPaths(ancestors.get(index+i), paths);
-				index++;
+				getPaths(ancestors.get(i), paths);
 			}
+		}
+		else
+		{
+			index++;
 		}
 	}
 }
