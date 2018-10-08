@@ -116,6 +116,7 @@ public class NodeEntryUIPanel extends JPanel {
 			 * ErrorCode 0: No node dependencies, but it is not a head
 			 * ErrorCode 1: The duration is NaN
 			 * ErrorCode 2: nodeDuration or or nodeName is empty
+			 * ErrorCode 3: node is dependency of itself
 			 */
 			boolean invalidNode = false;
 			int errorCode = -1;
@@ -145,6 +146,16 @@ public class NodeEntryUIPanel extends JPanel {
 					 */
 					ArrayList<String> nodes = new ArrayList<String>(Arrays.asList(nodeDependencies.getText().split(",")));
 					String name = nodeName.getText();
+					/*
+					 * Tests to make sure a node isn't a dependency of itself
+					 */
+					for(String node: nodes)
+					{
+						if(name.equals(node)) {
+							invalidNode = true;
+							errorCode = 3;
+						}
+					}
 					/*
 					 * For each loop to verify nodeDuration stores a number
 					 */
@@ -219,6 +230,10 @@ public class NodeEntryUIPanel extends JPanel {
 				{
 					JOptionPane.showMessageDialog(null,"Could not add node because the node did not have name or duration","Node not added",JOptionPane.ERROR_MESSAGE);			
 				}
+				else if(errorCode == 2) 
+				{
+					JOptionPane.showMessageDialog(null,"Could not add node because a node cannot be a dependency of itself","Node not added",JOptionPane.ERROR_MESSAGE);			
+				}
 				
 			}
 			nodeDuration.setText("");
@@ -231,6 +246,7 @@ public class NodeEntryUIPanel extends JPanel {
 		}
 
 	}
+	
 	public class AnalyzeListener implements ActionListener {
 
 		@Override
@@ -250,7 +266,7 @@ public class NodeEntryUIPanel extends JPanel {
 				if(Organizer.getErrorCode() == 0)
 				{
 					/**
-					 * Display Message saying that Node dependencies were not valid
+					 * Display Message saying that there were multiple instances of a node
 					 */
 				}
 			}
@@ -291,6 +307,7 @@ public class NodeEntryUIPanel extends JPanel {
 				 */
 				
 			}
+			NodeList.getInstance().resetList();
 		}
 
 	}
@@ -298,7 +315,7 @@ public class NodeEntryUIPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent action) {
-			JOptionPane.showMessageDialog(null,"Built by CSE360 Group 1: Jacob Baca, Matthew Bohr, John Shaeffer, Michael St. Orange","About",JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(null,"Built by CSE360 Group 1: Jacob Baca, Matthew Bohr, John Shaeffer, Michael St Onge","About",JOptionPane.PLAIN_MESSAGE);
 
 		}
 

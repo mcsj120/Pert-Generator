@@ -20,9 +20,12 @@ public class Organizer
     }
     
     /*
-     * Public Functions
+     * Public void Functions
      */
     
+    /**
+     * Checks all error scenarios and quits if one is found
+     */
     public void checkAll()
     {
     	int functionIndex = 0;
@@ -42,6 +45,9 @@ public class Organizer
 		insertionSort();
 	}
 	
+	/**
+	 * Public function to find paths
+	 */
 	public void recursiveStartPath()
 	{
 		ArrayList<Node> heads = list.getHeads();
@@ -55,6 +61,42 @@ public class Organizer
 		}
 		this.pathList = paths;
 	}
+	
+	/*
+	 * Public non void functions
+	 */
+	
+	/**
+	 * Returns names of activities in paths
+	 */
+	public ArrayList<ArrayList<String>> getNames()
+	{
+		ArrayList<ArrayList<String>> fullNames = new ArrayList<ArrayList<String>>();
+		for(int i = 0; i < this.pathList.size(); i++)
+		{
+			ArrayList<String> arr = new ArrayList<String>();
+			for(int j = 0; j < this.pathList.get(i).path.size(); j++)
+			{
+				arr.add(this.pathList.get(i).path.get(j).getName());
+			}
+			fullNames.add(arr);
+		}
+		return fullNames;
+	}
+	
+	/**
+	 * Returns duration of paths
+	 */
+	public ArrayList<Integer> getDurations()
+	{
+		ArrayList<Integer> durations = new ArrayList<Integer>();
+		for(int i = 0; i < this.pathList.size(); i++)
+		{
+			durations.add(pathList.get(i).duration);
+		}
+		return durations;
+	}
+
     
   
 	/*
@@ -96,7 +138,7 @@ public class Organizer
 	    				if(!nodeList.contains(n2)) 
 	    				{
 	    					valid = false;
-	    					errorCode = 0;
+	    					errorCode = 1;
 	    		
 	    				}
 	    			}
@@ -127,6 +169,9 @@ public class Organizer
     	}
     }
     
+    /**
+     * Checks to make sure no circular paths exist
+     */
     public void errorCircular()
     {
     	//checks to make sure no circular paths exist
@@ -150,7 +195,8 @@ public class Organizer
 	            {
 	                if(list.list.get(i).getName().equals(names.get(i)))
 	                {
-	                    exists = true;
+	                    valid = false;
+	                    errorCode = 0;
 	                    break;
 	                }
 	            }
@@ -160,40 +206,13 @@ public class Organizer
 	            }
 	            else
 	            {
-	                break;
+	            	break;
 	            }
 	        }
         }
     }
     
 
-	/**
-	 * Returns names of activities in paths
-	 */
-	public ArrayList<ArrayList<String>> getNames()
-	{
-		ArrayList<ArrayList<String>> fullNames = new ArrayList<ArrayList<String>>();
-		for(int i = 0; i < this.pathList.size(); i++)
-		{
-			ArrayList<String> arr = new ArrayList<String>();
-			for(int j = 0; j < this.pathList.get(i).path.size(); j++)
-			{
-				arr.add(this.pathList.get(i).path.get(j).getName());
-			}
-			fullNames.add(arr);
-		}
-		return fullNames;
-	}
-	
-	public ArrayList<Integer> getDurations()
-	{
-		ArrayList<Integer> durations = new ArrayList<Integer>();
-		for(int i = 0; i < this.pathList.size(); i++)
-		{
-			durations.add(pathList.get(i).duration);
-		}
-		return durations;
-	}
 
 
 	
@@ -201,6 +220,9 @@ public class Organizer
 	 * Private functions
 	 */
 	
+    /**
+     * Magic
+     */
 	private void getPaths(Node head, ArrayList<PathData> paths)
 	{
 		if(index == -1)
@@ -215,7 +237,6 @@ public class Organizer
 		if(ancestors.size()>0)
 		{
 			PathData data = paths.remove(index);
-			//paths.remove(index);
 			for(int i = 0; i < ancestors.size();i++)
 			{	
 				ArrayList<Node> empty = new ArrayList<Node>();
@@ -256,6 +277,9 @@ public class Organizer
     	}
     }
 	
+	/**
+	 * Sets dependencies for Node given string list and Node
+	 */
 	private void createDependencies(ArrayList<String> arr, Node n)
 	{
 		ArrayList<Node> depend = new ArrayList<Node>();
@@ -271,7 +295,29 @@ public class Organizer
 		}
 		n.setDependencies(depend);
 	}
-
+	
+	/**
+	 * Sets ancestors for Node given string list and Node
+	 */
+	private void createAncestors(ArrayList<String> arr, Node n)
+	{
+		ArrayList<Node> depend = new ArrayList<Node>();
+		for(String node: arr)
+		{
+			for(Node x: this.list.list)
+			{
+				if(node.equals(x.getName()))
+				{
+					depend.add(x);
+				}
+			}
+		}
+		n.setAncestors(depend);
+	}
+	
+	/**
+	 * Sums each path in pathList
+	 */
 	private void sumPaths()
 	{
 		for(PathData x: this.pathList)
