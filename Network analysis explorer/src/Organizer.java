@@ -112,39 +112,30 @@ public class Organizer
      * (maybe with a boolean array), and then once you are sure that they all exists, double check my 
      * createDependencies function I just created and call that
      */
-    public void checkDependencies() {
-    	/*
-    	 * If the function is already valid, we don't need to test it
-    	 */
-        if(valid == true)
-        {
-	    	valid = true;
-	    	ArrayList<Node> nodeList = this.list.getNodeList();
-	    	for(int i = 0; i < nodeList.size();i++) 
-	    	{
-	    		Node n = nodeList.get(i);
-	    		/*
-	    		 * if node is not a startNode
-	    		 */
-	    		if(!n.headValue()) 
-	    		{
-	    			/*
-	    			 * Iterates through all dependencies of Node
-	    			 */
-	    			for(int j = 0; j < n.getDependencies().size();j++) 
-	    			{
-	    				Node n2 = n.getDependencies().get(j);
-	    				// if a dependency is not in the nodeList return error
-	    				if(!nodeList.contains(n2)) 
-	    				{
-	    					valid = false;
-	    					errorCode = 1;
-	    		
-	    				}
-	    			}
-	    		}
-	    	}
+	//This function test to make sure that all dependency names exist in the nodeList exist
+    public boolean checkDependencies() {
+    	ArrayList<Node> nodeList = this.list.getNodeList();
+    	//go through all nodes in the node list
+    	for(int i = 0; i < nodeList.size();i++) {
+    		Node n = nodeList.get(i);
+    		//cycle through dependencies of n
+    		for(int j = 0; j < n.getStrDependencies().size();j++) {
+    			boolean nameInNodeList = false;
+    			String depName = n.getStrDependencies().get(j);
+    			//cycle through all nodes in nodeList searching for depName
+    			for(int k = 0; k < nodeList.size();k++) {
+    				if(nodeList.get(k).getName().equals(depName)) {
+    					nameInNodeList = true;
+    				}
+    			}
+    			if(!nameInNodeList) {
+    				//depName not in nodeList
+    				return false;
+    			}
+    		}
     	}
+    	//all dependency name are in nodeList
+    	return true;
     }
     
     public void checkAncestors() 
@@ -156,17 +147,19 @@ public class Organizer
      * This function might actually be unnecessary. Instead of this function, we can just create a checkAncestors
      * that does the opposite, which will basically verify that everything is connected.
      */
-    public void allNodesConnectedCheck() {
+    public boolean allNodesConnectedCheck() {
     	ArrayList<Node> nodeList = this.list.getNodeList();
     	//cycles through all nodes in nodeList
     	for(int i = 0; i < nodeList.size(); i++) {
     		Node n = nodeList.get(i);
     		//if node is not a startNode and nodeList does not contain
     		// the node is unconnected
-    		if(!n.headValue() || n.getDependencies().size() == 0) {
+    		if(!n.headValue() && n.getDependencies().size() == 0) {
     			System.out.println("Node " + n.toString() + " is not connected to other nodes.");
+    			return false;
     		}
     	}
+    	return true;
     }
     
     /**
