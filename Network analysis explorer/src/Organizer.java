@@ -16,7 +16,12 @@ public class Organizer
     {
         this.setList(list);
         errorCode = -1;
+        valid = true;
     }
+    
+    /*
+     * Public Functions
+     */
     
     public void checkAll()
     {
@@ -28,24 +33,35 @@ public class Organizer
     	}
     }
     
-    private void checkHelper(int functionIndex)
-    {
-    	switch(functionIndex)
-    	{
-	    	case(0):
-	    		errorDuplicateCheck();
-	    		break;
-	    	case(1):
-	    		checkDependencies();
-	    		break;
-	    	case(2):
-	    		checkAncestors();
-	    		break;
-    	
-    	}
-
-    }
-
+    /**
+     * Prepares Numbers in pathList
+     */
+	public void preparePathList() 
+	{
+		sumPaths();
+		insertionSort();
+	}
+	
+	public void recursiveStartPath()
+	{
+		ArrayList<Node> heads = list.getHeads();
+		ArrayList<PathData> paths = new ArrayList<PathData>();
+		for(Node head : heads)
+		{
+			ArrayList<PathData> individualPaths = new ArrayList<PathData>();
+			index = -1;
+			getPaths(head, individualPaths);
+			paths.addAll(individualPaths);
+		}
+		this.pathList = paths;
+	}
+    
+  
+	/*
+	 * Error Checks
+	 */
+	
+	
     /*
      * This function should check to make sure that all Dependencies of a Nodes dependencies exists
      * and then set the dependencies for the node
@@ -116,6 +132,9 @@ public class Organizer
     	//checks to make sure no circular paths exist
     }
 
+    /**
+     * Checks for duplicates
+     */
     public void errorDuplicateCheck()
     {
     	/*
@@ -147,52 +166,40 @@ public class Organizer
         }
     }
     
-    /*
-     * Getters and Setters
-     */
-	public boolean isValid() 
-	{
-		return valid;
-	}
 
-	public void setValid(boolean valid) 
+	/**
+	 * Returns names of activities in paths
+	 */
+	public ArrayList<ArrayList<String>> getNames()
 	{
-		this.valid = valid;
-	}
-
-	public ArrayList<PathData> getPathList() 
-	{
-		return pathList;
-	}
-
-	public void setPathList(ArrayList<PathData> pathList) 
-	{
-		this.pathList = pathList;
-	}
-
-	public NodeList getList() 
-	{
-		return list;
-	}
-
-	public void setList(NodeList list) 
-	{
-		this.list = list;
-	}
-
-	public void recursiveStartPath()
-	{
-		ArrayList<Node> heads = list.getHeads();
-		ArrayList<PathData> paths = new ArrayList<PathData>();
-		for(Node head : heads)
+		ArrayList<ArrayList<String>> fullNames = new ArrayList<ArrayList<String>>();
+		for(int i = 0; i < this.pathList.size(); i++)
 		{
-			ArrayList<PathData> individualPaths = new ArrayList<PathData>();
-			index = -1;
-			getPaths(head, individualPaths);
-			paths.addAll(individualPaths);
+			ArrayList<String> arr = new ArrayList<String>();
+			for(int j = 0; j < this.pathList.get(i).path.size(); j++)
+			{
+				arr.add(this.pathList.get(i).path.get(j).getName());
+			}
+			fullNames.add(arr);
 		}
-		this.pathList = paths;
+		return fullNames;
 	}
+	
+	public ArrayList<Integer> getDurations()
+	{
+		ArrayList<Integer> durations = new ArrayList<Integer>();
+		for(int i = 0; i < this.pathList.size(); i++)
+		{
+			durations.add(pathList.get(i).duration);
+		}
+		return durations;
+	}
+
+
+	
+	/*
+	 * Private functions
+	 */
 	
 	private void getPaths(Node head, ArrayList<PathData> paths)
 	{
@@ -228,6 +235,27 @@ public class Organizer
 		}
 	}
 	
+	/**
+	 * Iterates through errorCodes
+	 * @param functionIndex
+	 */
+	private void checkHelper(int functionIndex)
+    {
+    	switch(functionIndex)
+    	{
+	    	case(0):
+	    		errorDuplicateCheck();
+	    		break;
+	    	case(1):
+	    		checkDependencies();
+	    		break;
+	    	case(2):
+	    		checkAncestors();
+	    		break;
+    	
+    	}
+    }
+	
 	private void createDependencies(ArrayList<String> arr, Node n)
 	{
 		ArrayList<Node> depend = new ArrayList<Node>();
@@ -242,5 +270,70 @@ public class Organizer
 			}
 		}
 		n.setDependencies(depend);
+	}
+
+	private void sumPaths()
+	{
+		for(PathData x: this.pathList)
+		{
+			x.setDuration();
+		}
+	}
+	
+	/**
+	 * Insertion sort to organize durations
+	 */
+	private void insertionSort() 
+	{  
+	   for (int i = 1; i < this.pathList.size(); i++) 
+	   { 
+	       int key = pathList.get(i).duration; 
+	       int j = i-1; 
+	  
+	       while (j >= 0 && pathList.get(j).duration > key) 
+	       { 
+	           pathList.get(j+1).duration = pathList.get(j).duration; 
+	           j = j-1; 
+	       } 
+	       pathList.get(j+1).duration = key; 
+	   } 
+	}
+	
+    /*
+     * Getters and Setters
+     */
+	public boolean isValid() 
+	{
+		return valid;
+	}
+
+	public void setValid(boolean valid) 
+	{
+		this.valid = valid;
+	}
+
+	public ArrayList<PathData> getPathList() 
+	{
+		return pathList;
+	}
+
+	public void setPathList(ArrayList<PathData> pathList) 
+	{
+		this.pathList = pathList;
+	}
+
+	public NodeList getList() 
+	{
+		return list;
+	}
+
+	public void setList(NodeList list) 
+	{
+		this.list = list;
+	}
+	
+	public static int getErrorCode()
+	{
+		return errorCode;
 	}
 }

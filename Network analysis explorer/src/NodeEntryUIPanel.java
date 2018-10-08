@@ -234,9 +234,63 @@ public class NodeEntryUIPanel extends JPanel {
 	public class AnalyzeListener implements ActionListener {
 
 		@Override
-		public void actionPerformed(ActionEvent action) {
-			// TODO Auto-generated method stub
-
+		public void actionPerformed(ActionEvent action) 
+		{
+			NodeList list = NodeList.getInstance();
+			Organizer organizingList = new Organizer(list);
+			/*
+			 * Tests to see if there are any errors in the nodeList
+			 */
+			organizingList.checkAll();
+			/*
+			 * If error found, goes through error codes to show correct message
+			 */
+			if(organizingList.isValid()==false)
+			{
+				if(Organizer.getErrorCode() == 0)
+				{
+					/**
+					 * Display Message saying that Node dependencies were not valid
+					 */
+				}
+			}
+			
+			/*
+			 * If no errors found, proceeds to Analyze function
+			 */
+			else
+			{
+				/*
+				 * Performs the recursive function to find all of the paths
+				 */
+				organizingList.recursiveStartPath();
+				/*
+				 * Sets the pathList's value and organizes the pathList by value
+				 */
+				organizingList.preparePathList();
+				/*
+				 * List of Strings that are the name of nodes in each path
+				 */
+				ArrayList<ArrayList<String>> pathStrings = new ArrayList<ArrayList<String>>(organizingList.getNames());
+				/*
+				 * List of length of each path
+				 */
+				ArrayList<Integer> pathDurations = new ArrayList<Integer>(organizingList.getDurations());
+				/**
+				 * 
+				 * 	INSERT
+				 * FRAME
+				 * INFO
+				 * FOR 
+				 * PATHS
+				 * HERE
+				 * WITH
+				 * ABOVE
+				 * ARRAYS
+				 * 
+				 */
+				
+			}
 		}
 
 	}
@@ -263,7 +317,9 @@ public class NodeEntryUIPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent action) {
 			JOptionPane.showMessageDialog(null,"Are you sure you want to restart?","Restart",JOptionPane.PLAIN_MESSAGE);
-
+			/**
+			 * Should we add two options for quitting and restarting?
+			 */
 
 		}
 
@@ -273,7 +329,9 @@ public class NodeEntryUIPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent action) {
 			JOptionPane.showMessageDialog(null,"Are you sure you want to quit?","Quit",JOptionPane.PLAIN_MESSAGE);
-
+			/**
+			 * Should we add two options for quitting and restarting?
+			 */
 
 		}
 

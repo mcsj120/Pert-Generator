@@ -11,6 +11,15 @@ public class PathData
 	public PathData(ArrayList<Node> path)
 	{
 		this.path = path;
+		duration = 0;
+	}
+	
+	public void setDuration()
+	{
+		for(Node x: path)
+		{
+			duration+=x.getDuration();
+		}
 	}
 	
 }
