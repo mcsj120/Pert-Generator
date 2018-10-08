@@ -15,6 +15,35 @@ public class Organizer
     public Organizer(NodeList list)
     {
         this.setList(list);
+        errorCode = -1;
+    }
+    
+    public void checkAll()
+    {
+    	int functionIndex = 0;
+    	while(errorCode == -1)
+    	{
+    		checkHelper(functionIndex);
+    		functionIndex++;
+    	}
+    }
+    
+    private void checkHelper(int functionIndex)
+    {
+    	switch(functionIndex)
+    	{
+	    	case(0):
+	    		errorDuplicateCheck();
+	    		break;
+	    	case(1):
+	    		checkDependencies();
+	    		break;
+	    	case(2):
+	    		checkAncestors();
+	    		break;
+    	
+    	}
+
     }
 
     /*
@@ -60,6 +89,11 @@ public class Organizer
     	}
     }
     
+    public void checkAncestors() 
+    {
+    
+    }
+    
     /*
      * This function might actually be unnecessary. Instead of this function, we can just create a checkAncestors
      * that does the opposite, which will basically verify that everything is connected.
@@ -82,7 +116,7 @@ public class Organizer
     	//checks to make sure no circular paths exist
     }
 
-    public void errorDuplicateCheck(NodeList list)
+    public void errorDuplicateCheck()
     {
     	/*
     	 * If the function is already valid, we don't need to test it
@@ -113,16 +147,6 @@ public class Organizer
         }
     }
     
-    public void findDependencies()
-    {
-    	//This function adds all descendants to a Node, including the dependencies of their dependencies
-    }
-    
-    public void findAncestors()
-    {
-    	//This function adds all ancestors to a Node, including the ancestors of their ancestors
-    }
-
     /*
      * Getters and Setters
      */
@@ -211,7 +235,7 @@ public class Organizer
 		{
 			for(Node x: this.list.list)
 			{
-				if(arr.equals(x.getName()))
+				if(node.equals(x.getName()))
 				{
 					depend.add(x);
 				}
