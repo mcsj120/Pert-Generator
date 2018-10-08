@@ -112,8 +112,13 @@ public class NodeEntryUIPanel extends JPanel {
 			/*
 			 * If the input represents an invalid Node, this variable is set to true, which allows us to
 			 * show an error UI at the end;
+			 * The error code will be used to show the correct UI error message
+			 * ErrorCode 0: No node dependencies, but it is not a head
+			 * ErrorCode 1: The duration is NaN
+			 * ErrorCode 2: nodeDuration or or nodeName is empty
 			 */
 			boolean invalidNode = false;
+			int errorCode = -1;
 			/*
 			 * Because we know that the nodeDependencies field will be editable if it is not a 
 			 * head, we can use that to determine which constructor to use
@@ -123,9 +128,15 @@ public class NodeEntryUIPanel extends JPanel {
 				/*
 				 * Tests to make sure all necessary field have been filled
 				 */
-				if(nodeDependencies.getText().length()==0 || nodeDuration.getText().length()==0 || nodeName.getText().length()==0)
+				if(nodeDependencies.getText().length()==0)
 				{
 					invalidNode = true;
+					errorCode = 0;
+				}
+				else if(nodeDuration.getText().length()==0 || nodeName.getText().length()==0)
+				{
+					invalidNode = true;
+					errorCode = 2;
 				}
 				else
 				{
@@ -142,6 +153,8 @@ public class NodeEntryUIPanel extends JPanel {
 				        if (!Character.isDigit(number))
 				        {
 				        	invalidNode = true;
+				        	errorCode = 1;
+				        	break;
 				        }
 				    }
 					/*
@@ -159,6 +172,7 @@ public class NodeEntryUIPanel extends JPanel {
 				if(nodeDuration.getText().length()==0 || nodeName.getText().length()==0)
 				{
 					invalidNode = true;
+					errorCode = 0;
 				}
 				else
 				{
@@ -171,6 +185,8 @@ public class NodeEntryUIPanel extends JPanel {
 				        if (!Character.isDigit(number))
 				        {
 				        	invalidNode = true;
+				        	errorCode = 1;
+				        	break;
 				        }
 				    }
 					/*
@@ -189,10 +205,19 @@ public class NodeEntryUIPanel extends JPanel {
 				list.addToList(addedNode);
 				JOptionPane.showMessageDialog(null,"Added node"+addedNode.getName()+"with duration"+addedNode.getDuration(), "Node added",JOptionPane.PLAIN_MESSAGE);
 			}
-			else
+			else if(invalidNode)
 			{
-				if(invalidNode) {
-					JOptionPane.showMessageDialog(null,"Could not add node because the node did not have a valid name or duration","Node not added",JOptionPane.ERROR_MESSAGE);			
+				if(errorCode == 0) 
+				{
+					JOptionPane.showMessageDialog(null,"Could not add node because the node was not a head and had no dependencies","Node not added",JOptionPane.ERROR_MESSAGE);			
+				}
+				else if(errorCode == 1) 
+				{
+					JOptionPane.showMessageDialog(null,"Could not add node because the duration was not a number","Node not added",JOptionPane.ERROR_MESSAGE);			
+				}
+				else if(errorCode == 2) 
+				{
+					JOptionPane.showMessageDialog(null,"Could not add node because the node did not have name or duration","Node not added",JOptionPane.ERROR_MESSAGE);			
 				}
 				
 			}
