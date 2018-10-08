@@ -10,33 +10,55 @@ public class Organizer
     private NodeList list;
     private boolean valid;
     private static int index;
+    private static int errorCode;
     
     public Organizer(NodeList list)
     {
         this.setList(list);
     }
 
-    public void checkDependencies() {
+    /*
+     * This function should check to make sure that all Dependencies of a Nodes dependencies exists
+     * and then set the dependencies for the node
+     * 
+     * for each node : get the strDependenices, then you can verify that a node exists for each dependency
+     * (maybe with a boolean array), and then once you are sure that they all exists, double check my 
+     * createDependencies function I just created and call that
+     */
+    public boolean checkDependencies() {
+    	boolean valid = true;
     	ArrayList<Node> nodeList = this.list.getNodeList();
-    	for(int i = 0; i < nodeList.size();i++) {
+    	for(int i = 0; i < nodeList.size();i++) 
+    	{
     		Node n = nodeList.get(i);
-    		//if node is not a startNode
-    		if(!n.headValue()) {
-    			//check through all dependencies
-    			for(int j = 0; j < n.getDependencies().size();j++) {
+    		/*
+    		 * if node is not a startNode
+    		 */
+    		if(!n.headValue()) 
+    		{
+    			/*
+    			 * Iterates through all dependencies of Node
+    			 */
+    			for(int j = 0; j < n.getDependencies().size();j++) 
+    			{
     				Node n2 = n.getDependencies().get(j);
     				// if a dependency is not in the nodeList return error
-    				if(!nodeList.contains(n2)) {
-    					System.out.println("Dependency " + n2.toString() + " of " + n.toString() + " does not exist");
-    					// error for dependency not in nodeList
+    				if(!nodeList.contains(n2)) 
+    				{
+    					valid = false;
+    					errorCode = 0;
     		
     				}
     			}
     		}
     	}
+    	return valid;
     }
     
-    //this checks that all nodes are connected to each other
+    /*
+     * This function might actually be unnecessary. Instead of this function, we can just create a checkAncestors
+     * that does the opposite, which will basically verify that everything is connected.
+     */
     public void allNodesConnectedCheck() {
     	ArrayList<Node> nodeList = this.list.getNodeList();
     	//cycles through all nodes in nodeList
@@ -175,5 +197,21 @@ public class Organizer
 		{
 			index++;
 		}
+	}
+	
+	private void createDependencies(ArrayList<String> arr, Node n)
+	{
+		ArrayList<Node> depend = new ArrayList<Node>();
+		for(String node: arr)
+		{
+			for(Node x: this.list.list)
+			{
+				if(arr.equals(x.getName()))
+				{
+					depend.add(x);
+				}
+			}
+		}
+		n.setDependencies(depend);
 	}
 }
