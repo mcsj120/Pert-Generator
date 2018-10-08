@@ -25,34 +25,39 @@ public class Organizer
      * (maybe with a boolean array), and then once you are sure that they all exists, double check my 
      * createDependencies function I just created and call that
      */
-    public boolean checkDependencies() {
-    	boolean valid = true;
-    	ArrayList<Node> nodeList = this.list.getNodeList();
-    	for(int i = 0; i < nodeList.size();i++) 
-    	{
-    		Node n = nodeList.get(i);
-    		/*
-    		 * if node is not a startNode
-    		 */
-    		if(!n.headValue()) 
-    		{
-    			/*
-    			 * Iterates through all dependencies of Node
-    			 */
-    			for(int j = 0; j < n.getDependencies().size();j++) 
-    			{
-    				Node n2 = n.getDependencies().get(j);
-    				// if a dependency is not in the nodeList return error
-    				if(!nodeList.contains(n2)) 
-    				{
-    					valid = false;
-    					errorCode = 0;
-    		
-    				}
-    			}
-    		}
+    public void checkDependencies() {
+    	/*
+    	 * If the function is already valid, we don't need to test it
+    	 */
+        if(valid == true)
+        {
+	    	valid = true;
+	    	ArrayList<Node> nodeList = this.list.getNodeList();
+	    	for(int i = 0; i < nodeList.size();i++) 
+	    	{
+	    		Node n = nodeList.get(i);
+	    		/*
+	    		 * if node is not a startNode
+	    		 */
+	    		if(!n.headValue()) 
+	    		{
+	    			/*
+	    			 * Iterates through all dependencies of Node
+	    			 */
+	    			for(int j = 0; j < n.getDependencies().size();j++) 
+	    			{
+	    				Node n2 = n.getDependencies().get(j);
+	    				// if a dependency is not in the nodeList return error
+	    				if(!nodeList.contains(n2)) 
+	    				{
+	    					valid = false;
+	    					errorCode = 0;
+	    		
+	    				}
+	    			}
+	    		}
+	    	}
     	}
-    	return valid;
     }
     
     /*
