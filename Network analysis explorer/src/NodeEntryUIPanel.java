@@ -317,6 +317,7 @@ public class NodeEntryUIPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent action) {
 			JOptionPane.showMessageDialog(null,"Are you sure you want to restart?","Restart",JOptionPane.PLAIN_MESSAGE);
+			NodeList.getInstance().resetList();
 			/**
 			 * Should we add two options for quitting and restarting?
 			 */
