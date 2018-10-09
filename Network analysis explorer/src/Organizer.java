@@ -113,7 +113,7 @@ public class Organizer
      * createDependencies function I just created and call that
      */
 	//This function test to make sure that all dependency names exist in the nodeList exist
-    public boolean checkDependencies() {
+    public void checkDependencies() {
     	ArrayList<Node> nodeList = this.list.getNodeList();
     	//go through all nodes in the node list
     	for(int i = 0; i < nodeList.size();i++) {
@@ -130,12 +130,10 @@ public class Organizer
     			}
     			if(!nameInNodeList) {
     				//depName not in nodeList
-    				return false;
+    				errorCode = 2;
     			}
     		}
     	}
-    	//all dependency name are in nodeList
-    	return true;
     }
     
     public void checkAncestors() 
@@ -147,7 +145,7 @@ public class Organizer
      * This function might actually be unnecessary. Instead of this function, we can just create a checkAncestors
      * that does the opposite, which will basically verify that everything is connected.
      */
-    public boolean allNodesConnectedCheck() {
+    public void checkAllNodesConnected() {
     	ArrayList<Node> nodeList = this.list.getNodeList();
     	//cycles through all nodes in nodeList
     	for(int i = 0; i < nodeList.size(); i++) {
@@ -156,10 +154,9 @@ public class Organizer
     		// the node is unconnected
     		if(!n.headValue() && n.getDependencies().size() == 0) {
     			System.out.println("Node " + n.toString() + " is not connected to other nodes.");
-    			return false;
+    			errorCode = 3;
     		}
     	}
-    	return true;
     }
     
     /**
@@ -167,8 +164,19 @@ public class Organizer
      */
     public void errorCircular()
     {
-    	//checks to make sure no circular paths exist
+    	//trace through path of all nodes and see if the same node appears twice
+    	//this function is basically so that it can be called easily but is most dependent on the tracePath method
     }
+    
+    //this function is used as a helper function for the circular path check
+    // it returns a list of paths and is very similar to 
+    /*
+    private ArrayList<Node> tracePath(Node node){
+    	for(int i = 0; i < node.getDependencies().size(); i++) {
+    		//tempPath = trace   
+    	}
+    }
+    */
 
     /**
      * Checks for duplicates
@@ -184,7 +192,7 @@ public class Organizer
 	        ArrayList<String> names = new ArrayList<String>();
 	        for(int i = 0; i < list.list.size(); i ++)
 	        {
-	            for(int j = 0; j< names.size(); j++ )
+	            for(int j = 0; j < names.size(); j++ )
 	            {
 	                if(list.list.get(i).getName().equals(names.get(i)))
 	                {
@@ -266,6 +274,10 @@ public class Organizer
 	    	case(2):
 	    		checkAncestors();
 	    		break;
+	    	case(3):
+	    		checkAllNodesConnected();
+	    		break;
+	    		
     	
     	}
     }
