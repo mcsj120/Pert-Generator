@@ -17,4 +17,8 @@ public class NetworkAnalysisExplorer extends JApplet {
 		
 	}
 
+	public static void endApplication() {
+		System.exit(0);
+	}
+
 }

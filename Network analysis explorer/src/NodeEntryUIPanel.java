@@ -268,6 +268,9 @@ public class NodeEntryUIPanel extends JPanel {
 					/**
 					 * Display Message saying that there were multiple instances of a node
 					 */
+					{
+						JOptionPane.showMessageDialog(null,"Could not determine paths because multiple nodes had the same name","Could Not Analyze",JOptionPane.ERROR_MESSAGE);			
+					}
 				}
 			}
 			
@@ -333,23 +336,21 @@ public class NodeEntryUIPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent action) {
-			JOptionPane.showMessageDialog(null,"Are you sure you want to restart?","Restart",JOptionPane.PLAIN_MESSAGE);
+			int selectedOption=JOptionPane.showConfirmDialog(null,"Are you sure you want to restart? All data will be lost. ","Restart", JOptionPane.YES_NO_OPTION);
+			if (selectedOption==JOptionPane.YES_OPTION) {
 			NodeList.getInstance().resetList();
-			/**
-			 * Should we add two options for quitting and restarting?
-			 */
-
+			}
 		}
-
 	}
 	public class QuitListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent action) {
-			JOptionPane.showMessageDialog(null,"Are you sure you want to quit?","Quit",JOptionPane.PLAIN_MESSAGE);
-			/**
-			 * Should we add two options for quitting and restarting?
-			 */
+			int selectedOption=JOptionPane.showConfirmDialog(null,"Are you sure you want to quit? All data will be lost.","Quit",JOptionPane.YES_NO_OPTION);
+			if (selectedOption==JOptionPane.YES_OPTION) {
+				NodeList.getInstance().resetList();
+				NetworkAnalysisExplorer.endApplication();
+				}
 
 		}
 
