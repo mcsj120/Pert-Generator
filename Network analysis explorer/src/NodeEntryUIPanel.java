@@ -308,6 +308,10 @@ public class NodeEntryUIPanel extends JPanel {
 				 * ARRAYS
 				 * 
 				 */
+				//UI for showing analysis
+				JFrame analysisFrame=new JFrame();
+				analysisFrame.add(new AnalysisPanel(pathStrings,pathDurations));
+				analysisFrame.setVisible(true);
 				
 			}
 			NodeList.getInstance().resetList();
