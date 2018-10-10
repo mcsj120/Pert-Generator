@@ -147,7 +147,11 @@ public class Organizer
     
     public void checkAncestors() 
     {
+<<<<<<< HEAD
 
+=======
+    		//only need setAncestors - check setDependencies
+>>>>>>> local
     }
     
 
@@ -341,7 +345,7 @@ public class Organizer
 	/**
 	 * Sets dependencies for Node given string list and Node
 	 */
-	private void createDependencies(ArrayList<String> arr, Node n)
+	private void createDependencies(ArrayList<String> arr, Node n) //dependencies precede the activity
 	{
 		ArrayList<Node> depend = new ArrayList<Node>();
 		for(String node: arr)
@@ -360,7 +364,7 @@ public class Organizer
 	/**
 	 * Sets ancestors for Node given string list and Node
 	 */
-	private void createAncestors(ArrayList<String> arr, Node n)
+	private void createAncestors(ArrayList<String> arr, Node n) //ancestors come after activity (could be called children)
 	{
 		ArrayList<Node> depend = new ArrayList<Node>();
 		for(String node: arr)
