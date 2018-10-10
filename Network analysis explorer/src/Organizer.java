@@ -180,40 +180,37 @@ public class Organizer
     			}
     		}
     	}
+    	if(tempList.isEmpty()) {
+    		errorCode = 4;
+			valid = false;
+    	}
+    	else {
+    		//set tail to tempList
+        	Node tail = new Node();
+        	tail.setDependencies(tempList);
+        	//call tracePath on tail node
+        	tracePath(tail, new ArrayList<Node>());
+    	}
     	
-    	//set tail to tempList
-    	Node tail = new Node();
-    	tail.setDependencies(tempList);
-    	//call tracePath on tail node
-    	tracePath(tail);
-    	for(int i = 0; i < tail.getDependencies().size(); i++) {
-			System.out.print(tail.getDependencies().get(i).getName());
-		}
+    	
     }
     //will set the error code and valid fields
-    private ArrayList<Node> tracePath(Node node){
-    	while(valid) {
-	    	if(node.headValue()) {
-	    		ArrayList<Node> newList = new ArrayList<Node>();
-	    		newList.add(node);
-	    		return newList;
-	    	}
-	    	//trace path of all dependencies
-	    	ArrayList<Node> tracedPath = new ArrayList<Node>();
-	    	for(int i = 0; i < node.getDependencies().size(); i++) {
-	    		Node d = node.getDependencies().get(i);
-	    		//continually called on dependencies before it can be checked
-	    		tracedPath = tracePath(d);
-	    		if(tracedPath.contains(node)) {
-	    			errorCode = 4;
-	    			valid = false;
-	    			return null;
-	    		}
-	    		tracedPath.add(d);
-	    	}
-	    	return tracedPath;
+    private boolean tracePath(Node node, ArrayList<Node> tracedPath){
+    	if(tracedPath.contains(node)) {
+    		errorCode = 4;
+			valid = false;
+			return false;
     	}
-    	return null;
+    	tracedPath.add(node);
+    	if(node.headValue()) {
+    		return true;
+    	}
+    	for(int i = 0; i < node.getDependencies().size(); i++) {
+    		Node d = node.getDependencies().get(i);
+    		ArrayList<Node> clonedArrayList = (ArrayList<Node>) tracedPath.clone();
+    		tracePath(d, clonedArrayList);
+    	}
+    	return true;
     }
 
 
