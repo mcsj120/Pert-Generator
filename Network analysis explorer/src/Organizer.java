@@ -143,17 +143,7 @@ public class Organizer
     		}
     		
     	}
-    }
-    
-    public void checkAncestors() 
-    {
-<<<<<<< HEAD
-
-=======
-    		//only need setAncestors - check setDependencies
->>>>>>> local
-    }
-    
+    }    
 
     public void checkAllNodesConnected() 
     {
