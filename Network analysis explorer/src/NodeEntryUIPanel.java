@@ -214,7 +214,7 @@ public class NodeEntryUIPanel extends JPanel {
 			{
 				//Node gets added
 				list.addToList(addedNode);
-				JOptionPane.showMessageDialog(null,"Added node"+addedNode.getName()+"with duration"+addedNode.getDuration(), "Node added",JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(null,"Added node "+addedNode.getName()+" with duration "+addedNode.getDuration(), "Node added",JOptionPane.PLAIN_MESSAGE);
 			}
 			else if(invalidNode)
 			{
