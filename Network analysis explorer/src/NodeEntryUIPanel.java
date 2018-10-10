@@ -311,7 +311,7 @@ public class NodeEntryUIPanel extends JPanel {
 				//UI for showing analysis
 				JFrame analysisFrame=new JFrame();
 				analysisFrame.setTitle("Analysis Results");
-				
+				analysisFrame.setBounds(getX(), getY(), getWidth(), getHeight());
 				analysisFrame.add(new AnalysisPanel(pathStrings,pathDurations));
 				analysisFrame.setVisible(true);
 				
