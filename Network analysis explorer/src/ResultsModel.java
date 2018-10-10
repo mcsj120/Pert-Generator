@@ -6,8 +6,8 @@ public class ResultsModel extends AbstractTableModel{
 	ArrayList<ArrayList<String>> strings;
 	ArrayList<Integer> durations;
 	public ResultsModel(ArrayList<ArrayList<String>> pathStrings, ArrayList<Integer> pathDurations) {
-		pathStrings=strings;
-		pathDurations=durations;
+		strings=pathStrings;
+		durations=pathDurations;
 	}
 	
 	@Override
