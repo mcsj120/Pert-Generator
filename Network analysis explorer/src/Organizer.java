@@ -117,45 +117,57 @@ public class Organizer
     	//go through all nodes in the node list
     	for(int i = 0; i < nodeList.size();i++) {
     		Node n = nodeList.get(i);
-    		//cycle through dependencies of n
-    		for(int j = 0; j < n.getStrDependencies().size();j++) {
-    			boolean nameInNodeList = false;
-    			String depName = n.getStrDependencies().get(j);
-    			//cycle through all nodes in nodeList searching for depName
-    			for(int k = 0; k < nodeList.size();k++) {
-    				if(nodeList.get(k).getName().equals(depName)) {
-    					nameInNodeList = true;
-    				}
-    			}
-    			if(!nameInNodeList) {
-    				//depName not in nodeList
-    				errorCode = 2;
-    				this.valid = false; 
-    			}
+    		if(!n.headValue())
+    		{
+    			//cycle through dependencies of n
+	    		for(int j = 0; j < n.getStrDependencies().size();j++) {
+	    			boolean nameInNodeList = false;
+	    			String depName = n.getStrDependencies().get(j);
+	    			//cycle through all nodes in nodeList searching for depName
+	    			for(int k = 0; k < nodeList.size();k++) {
+	    				if(nodeList.get(k).getName().equals(depName)) {
+	    					nameInNodeList = true;
+	    				}
+	    			}
+	    			if(!nameInNodeList) {
+	    				//depName not in nodeList
+	    				errorCode = 2;
+	    				this.valid = false; 
+	    				break;
+	    			}
+	    		}
     		}
+    		if(!this.valid)
+    		{
+    			break;
+    		}
+    		
     	}
     }
     
     public void checkAncestors() 
     {
-    
+
     }
     
-    /*
-     * This function might actually be unnecessary. Instead of this function, we can just create a checkAncestors
-     * that does the opposite, which will basically verify that everything is connected.
-     */
-    public void checkAllNodesConnected() {
+
+    public void checkAllNodesConnected() 
+    {
     	ArrayList<Node> nodeList = this.list.getNodeList();
     	//cycles through all nodes in nodeList
-    	for(int i = 0; i < nodeList.size(); i++) {
+    	for(int i = 0; i < nodeList.size(); i++) 
+    	{
     		Node n = nodeList.get(i);
     		//if node is not a startNode and nodeList does not contain
     		// the node is unconnected
-    		if(!n.headValue() && n.getDependencies().size() == 0) {
+    		if(!n.headValue() && n.getDependencies() == null) 
+    		{
     			this.valid = false;
     			errorCode = 3;
     		}
+    		/*
+    		 * 
+    		 */
     	}
     }
     
@@ -225,18 +237,24 @@ public class Organizer
         if(valid == true)
         {
         	boolean exists = false;
-	        ArrayList<String> names = new ArrayList<String>();
+	        /*ArrayList<String> names = new ArrayList<String>();
+	        for(int i=0; i < list.list.size(); i++)
+	        {
+	        	names.add(list.list.get(i).getName());
+	        }
+	        */
 	        for(int i = 0; i < list.list.size(); i ++)
 	        {
-	            for(int j = 0; j < names.size(); j++ )
+	            for(int j = i+1; j < list.list.size(); j++ )
 	            {
-	                if(list.list.get(i).getName().equals(names.get(i)))
+	                if(list.list.get(i).getName().equals(list.list.get(j).getName()))
 	                {
 	                    valid = false;
 	                    errorCode = 0;
 	                    break;
 	                }
 	            }
+	            /*
 	            if(!exists)
 	            {
 	                names.add(list.list.get(i).getName());
@@ -244,7 +262,7 @@ public class Organizer
 	            else
 	            {
 	            	break;
-	            }
+	            }*/
 	        }
         }
     }
@@ -313,6 +331,8 @@ public class Organizer
 	    	case(3):
 	    		checkAllNodesConnected();
 	    		break;
+	    	default:
+	    		errorCode = -2;
 	    		
     	
     	}

@@ -42,7 +42,7 @@ public class NodeList
 	     */
 	    public void resetList()
 	    {
-	    	this.list = null;
+	    	this.instance = null;
 	    }
 	    
 	    /*
