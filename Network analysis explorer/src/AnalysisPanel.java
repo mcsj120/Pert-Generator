@@ -8,6 +8,7 @@ import javax.swing.JTable;
 
 public class AnalysisPanel extends JPanel {
 	public AnalysisPanel(ArrayList<ArrayList<String>> pathStrings, ArrayList<Integer> pathDurations) {
+		setSize(200,200);
 		setLayout(new GridLayout(1,1));
 		//This should always pass. But if it doesn't, we shouldn't show anything
 		if (pathStrings.size()==pathDurations.size()) {

@@ -230,7 +230,7 @@ public class NodeEntryUIPanel extends JPanel {
 				{
 					JOptionPane.showMessageDialog(null,"Could not add node because the node did not have name or duration","Node not added",JOptionPane.ERROR_MESSAGE);			
 				}
-				else if(errorCode == 2) 
+				else if(errorCode == 3) 
 				{
 					JOptionPane.showMessageDialog(null,"Could not add node because a node cannot be a dependency of itself","Node not added",JOptionPane.ERROR_MESSAGE);			
 				}
@@ -310,6 +310,8 @@ public class NodeEntryUIPanel extends JPanel {
 				 */
 				//UI for showing analysis
 				JFrame analysisFrame=new JFrame();
+				analysisFrame.setTitle("Analysis Results");
+				
 				analysisFrame.add(new AnalysisPanel(pathStrings,pathDurations));
 				analysisFrame.setVisible(true);
 				
