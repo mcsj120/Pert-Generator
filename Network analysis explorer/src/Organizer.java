@@ -131,6 +131,7 @@ public class Organizer
     			if(!nameInNodeList) {
     				//depName not in nodeList
     				errorCode = 2;
+    				this.valid = false; 
     			}
     		}
     	}
@@ -153,7 +154,7 @@ public class Organizer
     		//if node is not a startNode and nodeList does not contain
     		// the node is unconnected
     		if(!n.headValue() && n.getDependencies().size() == 0) {
-    			System.out.println("Node " + n.toString() + " is not connected to other nodes.");
+    			this.valid = false;
     			errorCode = 3;
     		}
     	}
@@ -162,21 +163,60 @@ public class Organizer
     /**
      * Checks to make sure no circular paths exist
      */
-    public void errorCircular()
-    {
-    	//trace through path of all nodes and see if the same node appears twice
-    	//this function is basically so that it can be called easily but is most dependent on the tracePath method
-    }
-    
-    //this function is used as a helper function for the circular path check
-    // it returns a list of paths and is very similar to 
-    /*
-    private ArrayList<Node> tracePath(Node node){
-    	for(int i = 0; i < node.getDependencies().size(); i++) {
-    		//tempPath = trace   
+    public void checkForCycle() {
+    	ArrayList<Node> nodeList = this.list.getNodeList();
+    	//create a tail node
+    	//create copy of nodeList
+    	ArrayList<Node> tempList = new ArrayList<Node>();
+    	for(int i = 0; i < nodeList.size(); i++) {
+    		tempList.add(nodeList.get(i));
     	}
+    	//find node that are not dependencies of other node
+    	for(int i = 0; i < nodeList.size(); i++ ) {
+    		Node n = nodeList.get(i);
+    		for(int j = 0; j < n.getDependencies().size(); j++) {
+    			Node d = n.getDependencies().get(j);
+    			if(tempList.contains(d)) {
+    				tempList.remove(d);
+    			}
+    		}
+    	}
+    	
+    	//set tail to tempList
+    	Node tail = new Node();
+    	tail.setDependencies(tempList);
+    	//call tracePath on tail node
+    	tracePath(tail);
+    	for(int i = 0; i < tail.getDependencies().size(); i++) {
+			System.out.print(tail.getDependencies().get(i).getName());
+		}
     }
-    */
+    //will set the error code and valid fields
+    private ArrayList<Node> tracePath(Node node){
+    	while(valid) {
+	    	if(node.headValue()) {
+	    		ArrayList<Node> newList = new ArrayList<Node>();
+	    		newList.add(node);
+	    		return newList;
+	    	}
+	    	//trace path of all dependencies
+	    	ArrayList<Node> tracedPath = new ArrayList<Node>();
+	    	for(int i = 0; i < node.getDependencies().size(); i++) {
+	    		Node d = node.getDependencies().get(i);
+	    		//continually called on dependencies before it can be checked
+	    		tracedPath = tracePath(d);
+	    		if(tracedPath.contains(node)) {
+	    			errorCode = 4;
+	    			valid = false;
+	    			return null;
+	    		}
+	    		tracedPath.add(d);
+	    	}
+	    	return tracedPath;
+    	}
+    	return null;
+    }
+
 
     /**
      * Checks for duplicates

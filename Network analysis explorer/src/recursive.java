@@ -18,13 +18,14 @@ class recursive {
 
 	@Test
 	void test() {
-		ArrayList<Node> aAncest = new ArrayList<Node>();
-		ArrayList<Node> bAncest = new ArrayList<Node>();
-		ArrayList<Node> cAncest = new ArrayList<Node>();
-		ArrayList<Node> dAncest = new ArrayList<Node>();
-		ArrayList<Node> eAncest = new ArrayList<Node>();
-		ArrayList<Node> fAncest = new ArrayList<Node>();
+		ArrayList<Node> aDep = new ArrayList<Node>();
+		ArrayList<Node> bDep = new ArrayList<Node>();
+		ArrayList<Node> cDep = new ArrayList<Node>();
+		ArrayList<Node> dDep = new ArrayList<Node>();
+		ArrayList<Node> eDep = new ArrayList<Node>();
+		ArrayList<Node> fDep = new ArrayList<Node>();
 		ArrayList<Node> allNodes = new ArrayList<Node>();
+		
 		
 		Node A = new Node("a",5);
 		
@@ -44,9 +45,11 @@ class recursive {
 		F.setHead(false);
 		F.setName("f");
 		
-		aAncest.add(B);
+		/*
+		aDep.add(B);
 		aAncest.add(C);
 		A.setAncestors(aAncest);
+		
 		
 		bAncest.add(F);
 		B.setAncestors(bAncest);
@@ -61,6 +64,23 @@ class recursive {
 		
 		fAncest.add(E);
 		F.setAncestors(fAncest);
+		*/
+		
+		bDep.add(A);
+		bDep.add(C);
+		dDep.add(B);
+		cDep.add(D);
+		eDep.add(B);
+		eDep.add(C);
+		fDep.add(D);
+
+		
+		A.setDependencies(aDep);
+		B.setDependencies(bDep);
+		C.setDependencies(cDep);
+		D.setDependencies(dDep);
+		E.setDependencies(eDep);
+		F.setDependencies(fDep);
 		
 		
 		
@@ -75,9 +95,17 @@ class recursive {
 		list.setNodeList(allNodes);
 		Organizer thing = new Organizer(list);
 		
-		thing.recursiveStartPath();
+		thing.checkForCycle();
+		
+		System.out.println(thing.isValid());
+		System.out.println(thing.getErrorCode());
+		
+		
+		
+		/*
 		ArrayList<PathData> pathList = thing.getPathList();
 		assertTrue(pathList.size()==2);
+		*/
 	}
 
 }
