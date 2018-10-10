@@ -120,7 +120,8 @@ public class Organizer
     		if(!n.headValue())
     		{
     			//cycle through dependencies of n
-	    		for(int j = 0; j < n.getStrDependencies().size();j++) {
+	    		for(int j = 0; j < n.getStrDependencies().size();j++) 
+	    		{
 	    			boolean nameInNodeList = false;
 	    			String depName = n.getStrDependencies().get(j);
 	    			//cycle through all nodes in nodeList searching for depName
@@ -135,6 +136,12 @@ public class Organizer
 	    				this.valid = false; 
 	    				break;
 	    			}
+	    		}
+	    		
+	    		if(valid)
+	    		{
+	    			ArrayList<String> dep = n.getStrDependencies();
+	    			createDependencies(dep, n);
 	    		}
     		}
     		if(!this.valid)
@@ -160,14 +167,15 @@ public class Organizer
     		Node n = nodeList.get(i);
     		//if node is not a startNode and nodeList does not contain
     		// the node is unconnected
-    		if(!n.headValue() && n.getDependencies() == null) 
+    		if(!n.headValue())
     		{
-    			this.valid = false;
-    			errorCode = 3;
+    			if(n.getDependencies() == null)
+    			{
+        			this.valid = false;
+        			errorCode = 3;
+    			}
     		}
-    		/*
-    		 * 
-    		 */
+
     	}
     }
     
@@ -326,7 +334,7 @@ public class Organizer
 	    		checkDependencies();
 	    		break;
 	    	case(2):
-	    		checkAncestors();
+	    		checkForCycle();
 	    		break;
 	    	case(3):
 	    		checkAllNodesConnected();
@@ -351,6 +359,7 @@ public class Organizer
 				if(node.equals(x.getName()))
 				{
 					depend.add(x);
+					x.addAncestor(n);
 				}
 			}
 		}

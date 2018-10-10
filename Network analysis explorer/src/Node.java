@@ -50,11 +50,19 @@ public class Node {
 	
 	public ArrayList<Node> getDependencies()
 	{
+		if(this.dependencies == null)
+		{
+			this.dependencies = new ArrayList<Node>();
+		}
 		return this.dependencies;
 	}
 	
 	public ArrayList<Node> getAncestors()
 	{
+		if(this.ancestors == null)
+		{
+			this.ancestors = new ArrayList<Node>();
+		}
 		return this.ancestors;
 	}
 	
@@ -85,5 +93,14 @@ public class Node {
 	public void setStrDependencies(ArrayList<String> strDependencies) 
 	{
 		this.strDependencies = strDependencies;
+	}
+	
+	public void addAncestor(Node n)
+	{
+		if(this.ancestors == null)
+		{
+			this.ancestors = new ArrayList<Node>();
+		}
+		this.ancestors.add(n);
 	}
 }
