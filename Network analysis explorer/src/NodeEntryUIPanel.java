@@ -360,7 +360,9 @@ public class NodeEntryUIPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent action) {
-			JOptionPane.showMessageDialog(null,"Built by CSE360 Group 1: Jacob Baca, Matthew Bohr, John Shaeffer, Michael St Onge","About",JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(null,"Built by CSE360 Group 1: Jacob Baca, Matthew Bohr, John Shaeffer, Michael St Onge\n"+
+			"This program allows you to input an activity name and duration, as well as dependencies, and receive as output a network diagram as long as there is no cycle in the given information.\n"+
+			"For more information, refer to our User Guide in the Help section. Thank you.","About",JOptionPane.PLAIN_MESSAGE);
 
 		}
 
@@ -369,7 +371,7 @@ public class NodeEntryUIPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent action) {
-			JOptionPane.showMessageDialog(null,"Need help? In your internet browser, go to https://goo.gl/zJYWGg","Help",JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(null,"Need help? In your internet browser, go to our User Guide, https://goo.gl/zJYWGg","Help",JOptionPane.PLAIN_MESSAGE);
 
 		}
 
@@ -378,7 +380,7 @@ public class NodeEntryUIPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent action) {
-			int selectedOption=JOptionPane.showConfirmDialog(null,"Are you sure you want to restart? All data will be lost. ","Restart", JOptionPane.YES_NO_OPTION);
+			int selectedOption=JOptionPane.showConfirmDialog(null,"Are you sure you want to restart? All data will be lost.","Restart", JOptionPane.YES_NO_OPTION);
 			if (selectedOption==JOptionPane.YES_OPTION) {
 			NodeList.getInstance().resetList();
 			}
