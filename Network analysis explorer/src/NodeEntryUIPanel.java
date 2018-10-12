@@ -371,7 +371,11 @@ public class NodeEntryUIPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent action) {
-			JOptionPane.showMessageDialog(null,"Need help? In your internet browser, go to our User Guide, https://goo.gl/zJYWGg","Help",JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(null,"Need help? In your internet browser, go to our User Guide, https://goo.gl/zJYWGg\n"+
+			"'Add Node' will add a node into the system based on the specifications provided in the text boxes and starting node checkbox.\n"+
+			"'Analyze Network' creates another window that shows the paths in the network, sorted by the longest paths first.\n"+
+			"'About' will produce a window stating the authors of this program, along with a small description.\n"+
+			"'Restart' and 'Quit' restart and quit the program, respectively, saving no data in the process.","Help",JOptionPane.PLAIN_MESSAGE);
 
 		}
 
