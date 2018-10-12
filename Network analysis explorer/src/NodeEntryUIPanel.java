@@ -220,7 +220,7 @@ public class NodeEntryUIPanel extends JPanel {
 			{
 				if(errorCode == 0) 
 				{
-					JOptionPane.showMessageDialog(null,"Could not add node because the node was not a head and had no dependencies","Node not added",JOptionPane.ERROR_MESSAGE);			
+					JOptionPane.showMessageDialog(null,"Could not add node because a field was empty","Node not added",JOptionPane.ERROR_MESSAGE);			
 				}
 				else if(errorCode == 1) 
 				{
