@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 // Organizer Class
 
@@ -132,7 +133,7 @@ public class Organizer
 	    			}
 	    			if(!nameInNodeList) {
 	    				//depName not in nodeList
-	    				errorCode = 2;
+	    				errorCode = 1;
 	    				this.valid = false; 
 	    				break;
 	    			}
@@ -151,6 +152,15 @@ public class Organizer
     		
     	}
     }    
+    
+    public void checkEmpty()
+    {
+    	if(this.list.getNodeList().isEmpty())
+    	{
+    		this.valid = false;
+    		errorCode = 4;
+    	}
+    }
 
     public void checkAllNodesConnected() 
     {
@@ -195,7 +205,7 @@ public class Organizer
     		}
     	}
     	if(tempList.isEmpty()) {
-    		errorCode = 4;
+    		errorCode = 2;
 			valid = false;
     	}
     	else {
@@ -325,12 +335,15 @@ public class Organizer
 	    		errorDuplicateCheck();
 	    		break;
 	    	case(1):
-	    		checkDependencies();
+	    		checkEmpty();
 	    		break;
 	    	case(2):
-	    		checkForCycle();
+	    		checkDependencies();
 	    		break;
 	    	case(3):
+	    		checkForCycle();
+	    		break;
+	    	case(4):
 	    		checkAllNodesConnected();
 	    		break;
 	    	default:
@@ -395,17 +408,15 @@ public class Organizer
 	 */
 	private void insertionSort() 
 	{  
-	   for (int i = 1; i < this.pathList.size(); i++) 
+	   for (int i = 0; i < this.pathList.size(); i++) 
 	   { 
-	       int key = pathList.get(i).duration; 
-	       int j = i-1; 
-	  
-	       while (j >= 0 && pathList.get(j).duration > key) 
-	       { 
-	           pathList.get(j+1).duration = pathList.get(j).duration; 
-	           j = j-1; 
-	       } 
-	       pathList.get(j+1).duration = key; 
+		   for(int j = i+1; j < this.pathList.size(); j++)
+		   {
+			   if(pathList.get(i).duration < pathList.get(j).duration)
+			   {
+				   Collections.swap(pathList, i, j);
+			   }
+		   }
 	   } 
 	}
 	

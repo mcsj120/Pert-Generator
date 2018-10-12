@@ -272,6 +272,42 @@ public class NodeEntryUIPanel extends JPanel {
 						JOptionPane.showMessageDialog(null,"Could not determine paths because multiple nodes had the same name","Could Not Analyze",JOptionPane.ERROR_MESSAGE);			
 					}
 				}
+				if(Organizer.getErrorCode() == 1)
+				{
+					/**
+					 * Display Message saying that there were multiple instances of a node
+					 */
+					{
+						JOptionPane.showMessageDialog(null,"Could not determine paths because dependencies do not exist","Could Not Analyze",JOptionPane.ERROR_MESSAGE);			
+					}
+				}
+				if(Organizer.getErrorCode() == 2)
+				{
+					/**
+					 * Display Message saying that there were multiple instances of a node
+					 */
+					{
+						JOptionPane.showMessageDialog(null,"A circular path of nodes exist","Could Not Analyze",JOptionPane.ERROR_MESSAGE);			
+					}
+				}
+				if(Organizer.getErrorCode() == 3)
+				{
+					/**
+					 * 
+					 */
+					{
+						JOptionPane.showMessageDialog(null,"All nodes are not properly connected to dependencies","Could Not Analyze",JOptionPane.ERROR_MESSAGE);			
+					}
+				}
+				if(Organizer.getErrorCode() == 4)
+				{
+					/**
+					 * 
+					 */
+					{
+						JOptionPane.showMessageDialog(null,"No nodes have been added","Could Not Analyze",JOptionPane.ERROR_MESSAGE);			
+					}
+				}
 			}
 			
 			/*
