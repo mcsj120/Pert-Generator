@@ -221,7 +221,7 @@ public class Organizer
     //will set the error code and valid fields
     private boolean tracePath(Node node, ArrayList<Node> tracedPath){
     	if(tracedPath.contains(node)) {
-    		errorCode = 4;
+    		errorCode = 2;
 			valid = false;
 			return false;
     	}
