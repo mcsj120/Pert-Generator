@@ -453,40 +453,6 @@ public class Organizer
 		this.list = list;
 	}
 	
-	/**
-	 * gets critical value in PathData area
-	 * @return PathData critical value
-	 */
-	public PathData getCritical()
-	{
-		int max = -1;
-		boolean shared = false;
-		sumPaths();
-		PathData critical = null;
-		for(PathData path: pathList)
-		{
-			if(path.duration > max)
-			{
-				max = path.duration;
-				critical = path;
-				shared = false;
-			}
-			else if(path.duration == max)
-			{
-				critical = null;
-				shared = true;
-			}
-		}
-		if(shared)
-		{
-			return null;
-		}
-		else
-		{
-			return critical;
-		}
-	}
-	
 	public static int getErrorCode()
 	{
 		return errorCode;
