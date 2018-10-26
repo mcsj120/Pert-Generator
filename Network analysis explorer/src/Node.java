@@ -48,6 +48,11 @@ public class Node {
 		return this.duration;
 	}
 	
+	public void setDuration(int duration)
+	{
+		this.duration = duration;
+	}
+	
 	public ArrayList<Node> getDependencies()
 	{
 		if(this.dependencies == null)

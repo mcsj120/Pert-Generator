@@ -62,6 +62,28 @@ public class Organizer
 		this.pathList = paths;
 	}
 	
+	/**
+	 * ReCalculates value of paths
+	 * @param duration of Node to choose
+	 * @return if successful
+	 */
+	public boolean reCalculate(String name, int duration)
+	{
+		NodeList x = NodeList.getInstance();
+		for(Node y: x.getNodeList())
+		{
+			if(name.equals(y.getName()))
+			{
+				y.setDuration(duration);
+				break;
+			}
+		}
+		for(PathData z: pathList)
+		{
+			z.setDuration();
+		}
+		return true;
+	}
 	/*
 	 * Public non void functions
 	 */
@@ -456,6 +478,7 @@ public class Organizer
 	/**
 	 * gets critical value in PathData area
 	 * @return PathData critical value
+	 * @return null if more than one critical path
 	 */
 	public PathData getCritical()
 	{
