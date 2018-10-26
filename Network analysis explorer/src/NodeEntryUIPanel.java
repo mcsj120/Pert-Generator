@@ -59,8 +59,8 @@ public class NodeEntryUIPanel extends JPanel {
 		buttonPanel.setLayout(new GridLayout(5,2));
 		buttonPanel.add(addNode);
 		buttonPanel.add(analyze);
-		buttonPanel.add(recalculate);
-		buttonPanel.add(report);
+		//buttonPanel.add(recalculate);
+		//buttonPanel.add(report);
 		buttonPanel.add(about);
 		buttonPanel.add(help);
 		buttonPanel.add(restart);
