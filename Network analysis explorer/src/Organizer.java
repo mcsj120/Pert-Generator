@@ -476,38 +476,29 @@ public class Organizer
 	}
 	
 	/**
-	 * gets critical value in PathData area
+	 * gets critical paths in PathData area
 	 * @return PathData critical value
 	 * @return null if more than one critical path
 	 */
-	public PathData getCritical()
+	public ArrayList<PathData> getCritical()
 	{
 		int max = -1;
-		boolean shared = false;
 		sumPaths();
-		PathData critical = null;
+		ArrayList<PathData> critical = new ArrayList<PathData>();
 		for(PathData path: pathList)
 		{
 			if(path.duration > max)
 			{
 				max = path.duration;
-				critical = path;
-				shared = false;
+				critical.clear();
+				critical.add(path);
 			}
 			else if(path.duration == max)
 			{
-				critical = null;
-				shared = true;
+				critical.add(path);
 			}
 		}
-		if(shared)
-		{
-			return null;
-		}
-		else
-		{
-			return critical;
-		}
+		return critical;
 	}
 	
 	public static int getErrorCode()
