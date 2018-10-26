@@ -501,6 +501,31 @@ public class Organizer
 		return critical;
 	}
 	
+	public ArrayList<ArrayList<String>> getCriticalNames(ArrayList<PathData> info)
+	{
+		ArrayList<ArrayList<String>> fullNames = new ArrayList<ArrayList<String>>();
+		for(int i = 0; i < info.size(); i++)
+		{
+			ArrayList<String> arr = new ArrayList<String>();
+			for(int j = 0; j < info.get(i).path.size(); j++)
+			{
+				arr.add(info.get(i).path.get(j).getName());
+			}
+			fullNames.add(arr);
+		}
+		return fullNames;
+	}
+	
+	public ArrayList<Integer> getCriticalDuration(ArrayList<PathData> info)
+	{
+		ArrayList<Integer> durations = new ArrayList<Integer>();
+		for(int i = 0; i < info.size(); i++)
+		{
+			durations.add(info.get(i).duration);
+		}
+		return durations;
+	}
+	
 	public static int getErrorCode()
 	{
 		return errorCode;

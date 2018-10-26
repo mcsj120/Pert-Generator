@@ -329,31 +329,31 @@ public class NodeEntryUIPanel extends JPanel {
 				 * Performs the recursive function to find all of the paths
 				 */
 				organizingList.recursiveStartPath();
-				/*
-				 * Sets the pathList's value and organizes the pathList by value
-				 */
-				organizingList.preparePathList();
-				/*
-				 * List of Strings that are the name of nodes in each path
-				 */
-				ArrayList<ArrayList<String>> pathStrings = new ArrayList<ArrayList<String>>(organizingList.getNames());
-				/*
-				 * List of length of each path
-				 */
-				ArrayList<Integer> pathDurations = new ArrayList<Integer>(organizingList.getDurations());
-				/**
-				 * 
-				 * 	INSERT
-				 * FRAME
-				 * INFO
-				 * FOR 
-				 * PATHS
-				 * HERE
-				 * WITH
-				 * ABOVE
-				 * ARRAYS
-				 * 
-				 */
+				ArrayList<ArrayList<String>> pathStrings;
+				ArrayList<Integer> pathDurations;
+				if(!showCriticalPaths.isSelected())
+				{
+					/*
+					 * Sets the pathList's value and organizes the pathList by value
+					 */
+					organizingList.preparePathList();
+					/*
+					 * List of Strings that are the name of nodes in each path
+					 */
+					pathStrings = new ArrayList<ArrayList<String>>(organizingList.getNames());
+					/*
+					 * List of length of each path
+					 */
+					pathDurations = new ArrayList<Integer>(organizingList.getDurations());
+				}
+				else
+				{
+					ArrayList<PathData> criticalPaths = organizingList.getCritical();
+					
+					pathStrings = new ArrayList<ArrayList<String>>(organizingList.getCriticalNames(criticalPaths));
+					
+					pathDurations = new ArrayList<Integer>(organizingList.getCriticalDuration(criticalPaths));
+				}
 				//UI for showing analysis
 				JFrame analysisFrame=new JFrame();
 				analysisFrame.setTitle("Analysis Results");
