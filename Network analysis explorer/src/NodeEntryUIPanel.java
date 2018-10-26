@@ -13,9 +13,9 @@ import java.awt.*;
 
 public class NodeEntryUIPanel extends JPanel {
 	
-	private JButton addNode,analyze,about,help,restart,exit;
+	private JButton addNode,analyze,about,help,restart,exit,recalculate,report;
 	private JTextField nodeName,nodeDuration,nodeDependencies;
-	private JCheckBox isStartingNode;
+	private JCheckBox isStartingNode,showCriticalPaths;
 	private JLabel nameLabel,durationLabel,dependenciesLabel;
 	public JPanel entryPanel, entryPanel2,buttonPanel;
 	
@@ -32,7 +32,10 @@ public class NodeEntryUIPanel extends JPanel {
 		help=new JButton();
 		restart=new JButton();
 		exit=new JButton();
+		recalculate = new JButton();
+		report = new JButton();
 		isStartingNode=new JCheckBox();
+		showCriticalPaths = new JCheckBox();
 		nodeName=new JTextField();
 		nodeDuration=new JTextField();
 		nodeDependencies=new JTextField();
@@ -52,9 +55,12 @@ public class NodeEntryUIPanel extends JPanel {
 		entryPanel2.add(dependenciesLabel);
 		entryPanel2.add(nodeDependencies);
 		add(entryPanel2);
-		buttonPanel.setLayout(new GridLayout(3,2));
+		add(showCriticalPaths);
+		buttonPanel.setLayout(new GridLayout(5,2));
 		buttonPanel.add(addNode);
 		buttonPanel.add(analyze);
+		buttonPanel.add(recalculate);
+		buttonPanel.add(report);
 		buttonPanel.add(about);
 		buttonPanel.add(help);
 		buttonPanel.add(restart);
@@ -68,8 +74,12 @@ public class NodeEntryUIPanel extends JPanel {
 		help.setText("Help");
 		restart.setText("Restart");
 		exit.setText("Exit");
+		recalculate.setText("Recalculatet");
+		report.setText("Make Report");
 		isStartingNode.setText("Starting Node");
 		isStartingNode.setSelected(false);
+		showCriticalPaths.setText("Show Only Critical Paths");
+		showCriticalPaths.setSelected(false);
 		nameLabel.setText("Activity name:");
 		durationLabel.setText("Duration:");
 		dependenciesLabel.setText("Dependencies");
