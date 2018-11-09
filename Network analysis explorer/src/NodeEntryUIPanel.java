@@ -60,8 +60,6 @@ public class NodeEntryUIPanel extends JPanel {
 		buttonPanel.setLayout(new GridLayout(5,2));
 		buttonPanel.add(addNode);
 		buttonPanel.add(analyze);
-		//buttonPanel.add(recalculate);
-		//buttonPanel.add(report);
 		buttonPanel.add(about);
 		buttonPanel.add(help);
 		buttonPanel.add(restart);
@@ -95,8 +93,8 @@ public class NodeEntryUIPanel extends JPanel {
 		help.addActionListener(new HelpListener());
 		restart.addActionListener(new RestartListener());
 		exit.addActionListener(new QuitListener());
-		//recalculate.addActionListener(new RecalculateListener()); //TODO: add these listeners
-		//report.addActionListener(new ReportListener());
+		recalculate.addActionListener(new RecalculateListener());
+		report.addActionListener(new ReportListener());
 		
 	};
 	//Listener for Starting node check box that turns off the dependencies text field if the check box is checked
@@ -258,7 +256,6 @@ public class NodeEntryUIPanel extends JPanel {
 		}
 
 	}
-	
 	public class AnalyzeListener implements ActionListener {
 
 		@Override
@@ -418,5 +415,26 @@ public class NodeEntryUIPanel extends JPanel {
 		}
 
 	}
-
+	public class RecalculateListener implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent action)
+		{
+			//TODO: add this implementation
+		}
+	}
+	
+	public class ReportListener implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent action)
+		{
+			NodeList list = NodeList.getInstance();
+			Organizer organizingList = new Organizer(list);
+			ReportCreator creator = new ReportCreator(organizingList);
+			String textReport = "";
+			creator.createReport(textReport);
+			//TODO: @Jacob, could you review the code necessary to produce the report here?
+		}
+	}
 }
