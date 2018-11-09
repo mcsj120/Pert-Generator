@@ -1,5 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.AfterEach;
@@ -27,23 +28,28 @@ class recursive {
 		ArrayList<Node> allNodes = new ArrayList<Node>();
 		
 		
-		Node A = new Node("a",5);
+		Node A = new Node("a",1);
 		
 		Node B = new Node();
 		B.setHead(false);
 		B.setName("b");
+		B.setDuration(2456);
 		Node C = new Node();
 		C.setHead(false);
 		C.setName("c");
+		C.setDuration(3);
 		Node D = new Node();
 		D.setHead(false);
 		D.setName("d");
+		D.setDuration(4);
 		Node E = new Node();
 		E.setHead(false);
 		E.setName("e");
+		E.setDuration(5);
 		Node F = new Node();
 		F.setHead(false);
 		F.setName("f");
+		F.setDuration(6);
 		
 		/*
 		aDep.add(B);
@@ -67,15 +73,16 @@ class recursive {
 		*/
 		
 		bDep.add(A);
-		bDep.add(C);
-		dDep.add(B);
-		cDep.add(D);
-		eDep.add(B);
-		eDep.add(C);
-		fDep.add(D);
+		//bDep.add(C);
+		//dDep.add(B);
+		cDep.add(B);
+		dDep.add(C);
+		eDep.add(D);
+		//eDep.add(C);
+		fDep.add(E);
 
 		
-		A.setDependencies(aDep);
+		//A.setDependencies(aDep);
 		B.setDependencies(bDep);
 		C.setDependencies(cDep);
 		D.setDependencies(dDep);
@@ -84,21 +91,29 @@ class recursive {
 		
 		
 		
-		allNodes.add(A);
+		
 		allNodes.add(B);
-		allNodes.add(C);
 		allNodes.add(D);
-		allNodes.add(E);
 		allNodes.add(F);
+		allNodes.add(A);
+		allNodes.add(C);
+		allNodes.add(E);
 		
 		NodeList list = NodeList.getInstance();
 		list.setNodeList(allNodes);
 		Organizer thing = new Organizer(list);
+		//thing.checkAll();
+		thing.recursiveStartPath();
+		thing.preparePathList();
 		
-		thing.checkForCycle();
 		
-		System.out.println(thing.isValid());
-		System.out.println(thing.getErrorCode());
+		ReportCreator report = new ReportCreator(thing);
+		try {
+			report.createReport("test");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Could not create output file");
+		}
 		
 		
 		

@@ -22,4 +22,11 @@ public class PathData
 		}
 	}
 	
+	public ArrayList<Node> getPath(){
+		return path;
+	}
+	public int getDuration() {
+		return duration;
+	}
+	
 }

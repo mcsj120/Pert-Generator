@@ -213,7 +213,7 @@ public class Organizer
     	//create a tail node
     	//create copy of nodeList
     	ArrayList<Node> tempList = new ArrayList<Node>();
-    	for(int i = 0; i < nodeList.size(); i++) {
+    	for(int i = 0; i < nodeList.size(); i++) { 
     		tempList.add(nodeList.get(i));
     	}
     	//find node that are not dependencies of other node
