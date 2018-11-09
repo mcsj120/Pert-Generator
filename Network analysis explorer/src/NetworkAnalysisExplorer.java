@@ -12,8 +12,6 @@ public class NetworkAnalysisExplorer extends JApplet {
 		setVisible(true);
 		Frame appletFrame = (Frame)this.getParent().getParent();
 		appletFrame.setTitle("Network Analyzer");
-		
-		
 	}
 
 	public static void endApplication() {

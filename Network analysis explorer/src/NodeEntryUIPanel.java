@@ -17,7 +17,7 @@ public class NodeEntryUIPanel extends JPanel {
 	private JTextField nodeName,nodeDuration,nodeDependencies;
 	private JCheckBox isStartingNode,showCriticalPaths;
 	private JLabel nameLabel,durationLabel,dependenciesLabel;
-	public JPanel entryPanel, entryPanel2,buttonPanel;
+	public JPanel entryPanel,entryPanel2,buttonPanel,buttonPanel2; //buttonPanel2 is for the recalculate and report buttons in the analyze window
 	
 	//Constructor
 	public NodeEntryUIPanel() {
@@ -26,6 +26,7 @@ public class NodeEntryUIPanel extends JPanel {
 		entryPanel= new JPanel();
 		entryPanel2=new JPanel();
 		buttonPanel=new JPanel();
+		buttonPanel2=new JPanel();
 		addNode=new JButton();
 		analyze=new JButton();
 		about=new JButton();
@@ -74,7 +75,7 @@ public class NodeEntryUIPanel extends JPanel {
 		help.setText("Help");
 		restart.setText("Restart");
 		exit.setText("Exit");
-		recalculate.setText("Recalculatet");
+		recalculate.setText("Recalculate");
 		report.setText("Make Report");
 		isStartingNode.setText("Starting Node");
 		isStartingNode.setSelected(false);
@@ -94,7 +95,8 @@ public class NodeEntryUIPanel extends JPanel {
 		help.addActionListener(new HelpListener());
 		restart.addActionListener(new RestartListener());
 		exit.addActionListener(new QuitListener());
-		
+		//recalculate.addActionListener(new RecalculateListener()); //TODO: add these listeners
+		//report.addActionListener(new ReportListener());
 		
 	};
 	//Listener for Starting node check box that turns off the dependencies text field if the check box is checked
@@ -360,7 +362,10 @@ public class NodeEntryUIPanel extends JPanel {
 				analysisFrame.setBounds(getX(), getY(), getWidth(), getHeight());
 				analysisFrame.add(new AnalysisPanel(pathStrings,pathDurations));
 				analysisFrame.setVisible(true);
-				
+				analysisFrame.setLayout(new GridLayout(2,2));
+				analysisFrame.add(buttonPanel2);
+				buttonPanel2.add(recalculate);
+				buttonPanel2.add(report);
 			}
 			NodeList.getInstance().resetList();
 		}
@@ -381,7 +386,7 @@ public class NodeEntryUIPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent action) {
-			JOptionPane.showMessageDialog(null,"Need help? In your internet browser, go to our User Guide, https://goo.gl/zJYWGg\n"+
+			JOptionPane.showMessageDialog(null,"Need help? In your internet browser, go to our User Guide, https://docs.google.com/document/d/1K-8yHsLcomfbP-B1LqkXv1Sxa7VY0hn-l-APkvpgULs/edit?usp=sharing"+
 			"'Add Node' will add a node into the system based on the specifications provided in the text boxes and starting node checkbox.\n"+
 			"'Analyze Network' creates another window that shows the paths in the network, sorted by the longest paths first.\n"+
 			"'About' will produce a window stating the authors of this program, along with a small description.\n"+
