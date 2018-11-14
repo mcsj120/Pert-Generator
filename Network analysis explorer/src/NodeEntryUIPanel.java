@@ -17,8 +17,8 @@ public class NodeEntryUIPanel extends JPanel {
 	private JButton addNode,analyze,about,help,restart,exit,recalculate,report,changeOk;
 	private JTextField nodeName,nodeDuration,nodeDependencies,changeNodeName,changeNodeDuration;
 	private JCheckBox isStartingNode,showCriticalPaths;
-	private JLabel nameLabel,durationLabel,dependenciesLabel;
-	public JPanel entryPanel,entryPanel2,buttonPanel,buttonPanel2; //buttonPanel2 is for the recalculate and report buttons in the analyze window
+	private JLabel nameLabel,durationLabel,dependenciesLabel,changeNameLabel,changeDurationLabel;
+	public JPanel entryPanel,entryPanel2,entryPanel3,buttonPanel,buttonPanel2,buttonPanel3; 
 	
 	//Constructor
 	public NodeEntryUIPanel() {
@@ -26,8 +26,10 @@ public class NodeEntryUIPanel extends JPanel {
 		setLayout(new GridLayout(0,1));
 		entryPanel= new JPanel();
 		entryPanel2=new JPanel();
+		entryPanel3 = new JPanel();
 		buttonPanel=new JPanel();
 		buttonPanel2=new JPanel();
+		buttonPanel3 = new JPanel();
 		addNode=new JButton();
 		analyze=new JButton();
 		about=new JButton();
@@ -47,6 +49,8 @@ public class NodeEntryUIPanel extends JPanel {
 		nameLabel=new JLabel();
 		durationLabel=new JLabel();
 		dependenciesLabel=new JLabel();
+		changeNameLabel = new JLabel();
+		changeDurationLabel = new JLabel();
 		//Add them to layouts
 		
 		entryPanel.setLayout(new GridLayout(2,2));
@@ -78,6 +82,7 @@ public class NodeEntryUIPanel extends JPanel {
 		restart.setText("Restart");
 		exit.setText("Exit");
 		recalculate.setText("Change Node");
+		changeOk.setText("OK");
 		report.setText("Make Report");
 		isStartingNode.setText("Starting Node");
 		isStartingNode.setSelected(false);
@@ -89,6 +94,8 @@ public class NodeEntryUIPanel extends JPanel {
 		nodeName.setEditable(true);
 		nodeDuration.setEditable(true);
 		nodeDependencies.setEditable(true);
+		changeNodeDuration.setEditable(true);
+		changeNodeName.setEditable(true);
 		//Add event listeners
 		isStartingNode.addItemListener(new StartingNodeListener());
 		addNode.addActionListener(new AddNodeListener());
@@ -424,9 +431,19 @@ public class NodeEntryUIPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent action)
 		{
-			JFrame changeNodeFrame=new JFrame();
-			changeNodeFrame.setTitle("Analysis Results");
-			changeNodeFrame.setBounds(getX(), getY(), getWidth()/2, getHeight()/2);
+			JFrame changeNodeFrame = new JFrame();
+			changeNodeFrame.setTitle("Change Node Duration");
+			changeNodeFrame.setBounds(getX(), getY(), getWidth()*3, getHeight()/4);
+			changeNodeFrame.add(entryPanel3);
+			changeNodeFrame.setVisible(true);
+			entryPanel3.setLayout(new GridLayout(1,4));
+			entryPanel3.add(changeNameLabel);
+			entryPanel3.add(changeNodeName);
+			entryPanel3.add(changeDurationLabel);
+			entryPanel3.add(changeNodeDuration);
+			entryPanel3.setLayout(new GridLayout(1,1));
+			entryPanel3.add(buttonPanel3);
+			buttonPanel3.add(changeOk);
 		}
 	}
 	
