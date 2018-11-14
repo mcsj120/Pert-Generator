@@ -14,11 +14,11 @@ import java.awt.*;
 
 public class NodeEntryUIPanel extends JPanel {
 	
-	private JButton addNode,analyze,about,help,restart,exit,recalculate,report,changeOk;
-	private JTextField nodeName,nodeDuration,nodeDependencies,changeNodeName,changeNodeDuration;
+	private JButton addNode,analyze,about,help,restart,exit;
+	private JTextField nodeName,nodeDuration,nodeDependencies;
 	private JCheckBox isStartingNode,showCriticalPaths;
-	private JLabel nameLabel,durationLabel,dependenciesLabel,changeNameLabel,changeDurationLabel;
-	public JPanel entryPanel,entryPanel2,entryPanel3,buttonPanel,buttonPanel2,buttonPanel3; 
+	private JLabel nameLabel,durationLabel,dependenciesLabel;
+	public JPanel entryPanel,entryPanel2,entryPanel3,buttonPanel; 
 	
 	//Constructor
 	public NodeEntryUIPanel() {
@@ -28,29 +28,21 @@ public class NodeEntryUIPanel extends JPanel {
 		entryPanel2=new JPanel();
 		entryPanel3 = new JPanel();
 		buttonPanel=new JPanel();
-		buttonPanel2=new JPanel();
-		buttonPanel3 = new JPanel();
+		
 		addNode=new JButton();
 		analyze=new JButton();
 		about=new JButton();
 		help=new JButton();
 		restart=new JButton();
 		exit=new JButton();
-		recalculate = new JButton();
-		report = new JButton();
-		changeOk = new JButton();
 		isStartingNode=new JCheckBox();
 		showCriticalPaths = new JCheckBox();
 		nodeName=new JTextField();
 		nodeDuration=new JTextField();
 		nodeDependencies=new JTextField();
-		changeNodeName = new JTextField();
-		changeNodeDuration = new JTextField();
 		nameLabel=new JLabel();
 		durationLabel=new JLabel();
 		dependenciesLabel=new JLabel();
-		changeNameLabel = new JLabel();
-		changeDurationLabel = new JLabel();
 		//Add them to layouts
 		
 		entryPanel.setLayout(new GridLayout(2,2));
@@ -65,7 +57,7 @@ public class NodeEntryUIPanel extends JPanel {
 		entryPanel2.add(nodeDependencies);
 		add(entryPanel2);
 		add(showCriticalPaths);
-		buttonPanel.setLayout(new GridLayout(5,2));
+		buttonPanel.setLayout(new GridLayout(3,2));
 		buttonPanel.add(addNode);
 		buttonPanel.add(analyze);
 		buttonPanel.add(about);
@@ -81,9 +73,6 @@ public class NodeEntryUIPanel extends JPanel {
 		help.setText("Help");
 		restart.setText("Restart");
 		exit.setText("Exit");
-		recalculate.setText("Change Node");
-		changeOk.setText("OK");
-		report.setText("Make Report");
 		isStartingNode.setText("Starting Node");
 		isStartingNode.setSelected(false);
 		showCriticalPaths.setText("Show Only Critical Paths");
@@ -94,8 +83,6 @@ public class NodeEntryUIPanel extends JPanel {
 		nodeName.setEditable(true);
 		nodeDuration.setEditable(true);
 		nodeDependencies.setEditable(true);
-		changeNodeDuration.setEditable(true);
-		changeNodeName.setEditable(true);
 		//Add event listeners
 		isStartingNode.addItemListener(new StartingNodeListener());
 		addNode.addActionListener(new AddNodeListener());
@@ -104,8 +91,6 @@ public class NodeEntryUIPanel extends JPanel {
 		help.addActionListener(new HelpListener());
 		restart.addActionListener(new RestartListener());
 		exit.addActionListener(new QuitListener());
-		recalculate.addActionListener(new RecalculateListener());
-		report.addActionListener(new ReportListener());
 		
 	};
 	//Listener for Starting node check box that turns off the dependencies text field if the check box is checked
@@ -370,10 +355,6 @@ public class NodeEntryUIPanel extends JPanel {
 				analysisFrame.setBounds(getX(), getY(), getWidth(), getHeight());
 				analysisFrame.add(new AnalysisPanel(pathStrings,pathDurations));
 				analysisFrame.setVisible(true);
-				analysisFrame.setLayout(new GridLayout(2,2));
-				analysisFrame.add(buttonPanel2);
-				buttonPanel2.add(recalculate);
-				buttonPanel2.add(report);
 			}
 			NodeList.getInstance().resetList();
 		}
@@ -425,44 +406,5 @@ public class NodeEntryUIPanel extends JPanel {
 
 		}
 
-	}
-	public class RecalculateListener implements ActionListener
-	{
-		@Override
-		public void actionPerformed(ActionEvent action)
-		{
-			JFrame changeNodeFrame = new JFrame();
-			changeNodeFrame.setTitle("Change Node Duration");
-			changeNodeFrame.setBounds(getX(), getY(), getWidth()*3, getHeight()/4);
-			changeNodeFrame.add(entryPanel3);
-			changeNodeFrame.setVisible(true);
-			entryPanel3.setLayout(new GridLayout(1,4));
-			entryPanel3.add(changeNameLabel);
-			entryPanel3.add(changeNodeName);
-			entryPanel3.add(changeDurationLabel);
-			entryPanel3.add(changeNodeDuration);
-			entryPanel3.setLayout(new GridLayout(1,1));
-			entryPanel3.add(buttonPanel3);
-			buttonPanel3.add(changeOk);
-		}
-	}
-	
-	public class ReportListener implements ActionListener
-	{
-		@Override
-		public void actionPerformed(ActionEvent action)
-		{
-			NodeList list = NodeList.getInstance();
-			Organizer organizingList = new Organizer(list);
-			ReportCreator creator = new ReportCreator(organizingList);
-			String textReport = "";
-			try {
-				creator.createReport(textReport);
-			} catch(IOException e)
-			{
-				
-			}
-			//TODO: @Jacob, could you review the code necessary to produce the report here?
-		}
 	}
 }
