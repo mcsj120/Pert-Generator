@@ -65,15 +65,15 @@ public class AnalysisPanel extends JPanel {
 			changeNodeDuration.setEditable(true);
 			changeNodeName.setEditable(true);
 			changeNodeFrame.setTitle("Change Node Duration");
-			changeNodeFrame.setBounds(getX(), getY(), getWidth()*3, getHeight()/4);
-			entryPanel3.setLayout(new GridLayout(2,3));
+			changeNodeFrame.setBounds(getX(), getY(), getWidth(), getHeight());
+			entryPanel3.setLayout(new GridLayout(3,2));
 			entryPanel3.add(changeNameLabel);
 			entryPanel3.add(changeNodeName);
 			entryPanel3.add(changeDurationLabel);
 			entryPanel3.add(changeNodeDuration);
 			entryPanel3.add(buttonPanel3);
 			changeOk.setText("OK");
-			changeOk.addActionListener(new ChangeOKListener());
+			changeOk.addActionListener(new ChangeOKListener(changeNodeFrame));
 			buttonPanel3.add(changeOk);
 			changeNodeFrame.add(entryPanel3);
 			changeNodeFrame.setVisible(true);
@@ -86,7 +86,6 @@ public class AnalysisPanel extends JPanel {
 		{
 			
 			//prompt for file name
-			String fileName = "";
 			JFrame reportNameFrame = new JFrame();
 			reportNameFrame.setTitle("Enter Project Name");
 			reportNameFrame.setSize(400,200);
@@ -111,11 +110,17 @@ public class AnalysisPanel extends JPanel {
 	}
 	public class ChangeOKListener implements ActionListener
 	{
+		JFrame frameToClose;
+		ChangeOKListener(JFrame frame){
+			super();
+			frameToClose = frame;
+		}
 		@Override
 		public void actionPerformed(ActionEvent action)
 		{
-			//Recalculate the paths and close the frame
+			//TODO:Recalculate the paths
 			//after recalculating set mostRecentOrganizer to organizer used
+			frameToClose.dispose();
 		}
 		
 	}
