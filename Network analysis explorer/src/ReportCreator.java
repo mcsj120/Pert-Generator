@@ -110,9 +110,6 @@ public class ReportCreator {
 		
 	}
 	
-	public void createReport(Organizer o, String fileName) {
-		
-	}
 	
 	//returns an alphabetized list of node names
 	private ArrayList[] alphabetizeNodeNames(ArrayList<Node> nodeList){
@@ -157,12 +154,12 @@ public class ReportCreator {
 		ArrayList<Integer> pathDurations = new ArrayList<Integer>();
 		for(int i = 0; i < pathList.size(); i++) {
 			ArrayList<Node> path =  pathList.get(i).getPath();
-			System.out.println(path.size());
+			//System.out.println(path.size());
 			String str = "";
 			for(int j = 0; j < path.size() - 1; j++) {
 				str = str + path.get(j).getName() +", ";
-				System.out.println(path.get(j).getName());
-				System.out.println(str);
+				//System.out.println(path.get(j).getName());
+				//System.out.println(str);
 			}
 			str += path.get(path.size() - 1).getName();
 			pathNames.add(str);

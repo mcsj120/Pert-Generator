@@ -13,11 +13,14 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 public class AnalysisPanel extends JPanel {
-	private JButton recalculate,report,changeOk;
-	private JTextField changeNodeName,changeNodeDuration;
-	private JLabel changeNameLabel,changeDurationLabel;
-	public JPanel entryPanel3,buttonPanel2,buttonPanel3; 
-	public AnalysisPanel(ArrayList<ArrayList<String>> pathStrings, ArrayList<Integer> pathDurations) {
+	private JButton recalculate,report,changeOk, reportNameOKButton;
+	private JTextField changeNodeName,changeNodeDuration,reportNameTextField;
+	private JLabel changeNameLabel,changeDurationLabel,enterNamePromptLabel;
+	public JPanel entryPanel3,buttonPanel2,buttonPanel3,reportNamePanel,reportEntryNamePanel;
+	private Organizer mostRecentOrganizer; //organizer that contains the most recent Organizer that has had analysis done on it
+	public AnalysisPanel(ArrayList<ArrayList<String>> pathStrings, ArrayList<Integer> pathDurations, Organizer organizer) {
+		// sets mostRecentOrganizer to the passed Organizer
+		mostRecentOrganizer = organizer;
 		
 		setLayout(new GridLayout(2,1));
 		//This should always pass. But if it doesn't, we shouldn't show anything
@@ -81,19 +84,30 @@ public class AnalysisPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent action)
 		{
-			//NodeList list = NodeList.getInstance();
-			//Organizer organizingList = new Organizer(list);
-			//ReportCreator creator = new ReportCreator(organizingList);
-			//String textReport = "";
-			//try {
-			//	creator.createReport(textReport);
-			//} catch(IOException e)
-			//{
-				
-			//}
-			//TODO: @Jacob, could you review the code necessary to produce the report here?
-			//Update from Matthew: commented this out because it was unimplemented and didn't want any side effects temporarily. Uncomment when finished with the implementation of this.
-			}
+			
+			//prompt for file name
+			String fileName = "";
+			JFrame reportNameFrame = new JFrame();
+			reportNameFrame.setTitle("Enter Project Name");
+			reportNameFrame.setSize(400,200);
+			reportNamePanel = new JPanel();
+			reportEntryNamePanel = new JPanel();
+			reportNameTextField = new JTextField();
+			reportNameOKButton = new JButton("OK");
+			reportNameOKButton.addActionListener(new ReportNameOKListener(reportNameFrame));
+			enterNamePromptLabel = new JLabel("Enter Report Name: ");
+			reportEntryNamePanel.setLayout(new GridLayout(1,2));
+			reportEntryNamePanel.add(enterNamePromptLabel);
+			reportEntryNamePanel.add(reportNameTextField);
+			reportNamePanel.setLayout(new GridLayout(2,1));
+			reportNamePanel.add(reportEntryNamePanel);
+			reportNamePanel.add(reportNameOKButton);
+			reportNameFrame.add(reportNamePanel);
+			reportNameFrame.setVisible(true);
+			
+			
+			
+		}
 	}
 	public class ChangeOKListener implements ActionListener
 	{
@@ -101,7 +115,34 @@ public class AnalysisPanel extends JPanel {
 		public void actionPerformed(ActionEvent action)
 		{
 			//Recalculate the paths and close the frame
+			//after recalculating set mostRecentOrganizer to organizer used
 		}
 		
 	}
+	public class ReportNameOKListener implements ActionListener
+	{
+		JFrame frameToClose;
+		ReportNameOKListener(JFrame frame){
+			super();
+			frameToClose = frame;
+		}
+		@Override
+		public void actionPerformed(ActionEvent action)
+		{
+			//set
+			ReportCreator report = new ReportCreator(mostRecentOrganizer);
+			String reportName = reportNameTextField.getText();
+			try {
+				report.createReport(reportName);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			frameToClose.dispose();
+			//textfile created in bin
+			//Project Name can also be path as long as program has permissions to write to location (may need to test if jar file)
+		}
+		
+	}
+	
 }
