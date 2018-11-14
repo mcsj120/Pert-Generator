@@ -14,8 +14,8 @@ import java.awt.*;
 
 public class NodeEntryUIPanel extends JPanel {
 	
-	private JButton addNode,analyze,about,help,restart,exit,recalculate,report;
-	private JTextField nodeName,nodeDuration,nodeDependencies;
+	private JButton addNode,analyze,about,help,restart,exit,recalculate,report,changeOk;
+	private JTextField nodeName,nodeDuration,nodeDependencies,changeNodeName,changeNodeDuration;
 	private JCheckBox isStartingNode,showCriticalPaths;
 	private JLabel nameLabel,durationLabel,dependenciesLabel;
 	public JPanel entryPanel,entryPanel2,buttonPanel,buttonPanel2; //buttonPanel2 is for the recalculate and report buttons in the analyze window
@@ -36,11 +36,14 @@ public class NodeEntryUIPanel extends JPanel {
 		exit=new JButton();
 		recalculate = new JButton();
 		report = new JButton();
+		changeOk = new JButton();
 		isStartingNode=new JCheckBox();
 		showCriticalPaths = new JCheckBox();
 		nodeName=new JTextField();
 		nodeDuration=new JTextField();
 		nodeDependencies=new JTextField();
+		changeNodeName = new JTextField();
+		changeNodeDuration = new JTextField();
 		nameLabel=new JLabel();
 		durationLabel=new JLabel();
 		dependenciesLabel=new JLabel();
@@ -74,7 +77,7 @@ public class NodeEntryUIPanel extends JPanel {
 		help.setText("Help");
 		restart.setText("Restart");
 		exit.setText("Exit");
-		recalculate.setText("Recalculate");
+		recalculate.setText("Change Node");
 		report.setText("Make Report");
 		isStartingNode.setText("Starting Node");
 		isStartingNode.setSelected(false);
@@ -421,7 +424,9 @@ public class NodeEntryUIPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent action)
 		{
-			//TODO: add this implementation
+			JFrame changeNodeFrame=new JFrame();
+			changeNodeFrame.setTitle("Analysis Results");
+			changeNodeFrame.setBounds(getX(), getY(), getWidth()/2, getHeight()/2);
 		}
 	}
 	
