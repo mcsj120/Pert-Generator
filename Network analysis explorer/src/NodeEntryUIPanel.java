@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -433,7 +434,12 @@ public class NodeEntryUIPanel extends JPanel {
 			Organizer organizingList = new Organizer(list);
 			ReportCreator creator = new ReportCreator(organizingList);
 			String textReport = "";
-			creator.createReport(textReport);
+			try {
+				creator.createReport(textReport);
+			} catch(IOException e)
+			{
+				
+			}
 			//TODO: @Jacob, could you review the code necessary to produce the report here?
 		}
 	}
