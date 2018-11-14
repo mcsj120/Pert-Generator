@@ -35,7 +35,7 @@ public class AnalysisPanel extends JPanel {
 			buttonPanel2.setLayout(new GridLayout(1,2));
 			recalculate.setText("Change Node");
 			report.setText("Make Report");
-			recalculate.addActionListener(new RecalculateListener());
+			recalculate.addActionListener(new RecalculateListener(pathStrings,pathDurations));
 			report.addActionListener(new ReportListener());
 			buttonPanel2.add(recalculate);
 			buttonPanel2.add(report);
@@ -49,6 +49,14 @@ public class AnalysisPanel extends JPanel {
 	}
 	public class RecalculateListener implements ActionListener
 	{
+		private ArrayList<ArrayList<String>> pathString;
+		private ArrayList<Integer> pathDuration;
+		
+		RecalculateListener(ArrayList<ArrayList<String>> pathStrings, ArrayList<Integer> pathDurations){
+			pathString=pathStrings;
+			pathDuration=pathDurations;
+			
+		}
 		@Override
 		public void actionPerformed(ActionEvent action)
 		{
@@ -73,7 +81,7 @@ public class AnalysisPanel extends JPanel {
 			entryPanel3.add(changeNodeDuration);
 			entryPanel3.add(buttonPanel3);
 			changeOk.setText("OK");
-			changeOk.addActionListener(new ChangeOKListener(changeNodeFrame));
+			changeOk.addActionListener(new ChangeOKListener(changeNodeFrame,pathString,pathDuration));
 			buttonPanel3.add(changeOk);
 			changeNodeFrame.add(entryPanel3);
 			changeNodeFrame.setVisible(true);
@@ -111,15 +119,23 @@ public class AnalysisPanel extends JPanel {
 	public class ChangeOKListener implements ActionListener
 	{
 		JFrame frameToClose;
-		ChangeOKListener(JFrame frame){
+		ArrayList<ArrayList<String>> pathNames;
+		ArrayList<Integer> pathDuration;
+		ChangeOKListener(JFrame frame,ArrayList<ArrayList<String>> pathStrings, ArrayList<Integer> pathDurations){
 			super();
 			frameToClose = frame;
+			pathNames=pathStrings;
+			pathDuration=pathDurations;
 		}
 		@Override
 		public void actionPerformed(ActionEvent action)
 		{
 			//TODO:Recalculate the paths
 			//after recalculating set mostRecentOrganizer to organizer used
+			JFrame newFrame=new JFrame();
+			newFrame.add(new AnalysisPanel(pathNames,pathDuration,mostRecentOrganizer));
+			newFrame.setSize(400, 800);
+			newFrame.setVisible(true);
 			frameToClose.dispose();
 		}
 		
