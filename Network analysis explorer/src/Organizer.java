@@ -70,13 +70,19 @@ public class Organizer
 	public boolean reCalculate(String name, int duration)
 	{
 		NodeList x = NodeList.getInstance();
+		boolean flag = false;
 		for(Node y: x.getNodeList())
 		{
 			if(name.equals(y.getName()))
 			{
 				y.setDuration(duration);
+				flag = true;
 				break;
 			}
+		}
+		if(flag == false)
+		{
+			return false;
 		}
 		for(PathData z: pathList)
 		{

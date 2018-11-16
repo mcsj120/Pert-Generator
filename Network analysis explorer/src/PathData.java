@@ -16,6 +16,7 @@ public class PathData
 	
 	public void setDuration()
 	{
+		duration = 0;
 		for(Node x: path)
 		{
 			duration+=x.getDuration();

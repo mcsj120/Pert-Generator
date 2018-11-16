@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -129,9 +130,38 @@ public class AnalysisPanel extends JPanel {
 		}
 		@Override
 		public void actionPerformed(ActionEvent action)
-		{
-			//TODO:Recalculate the paths
-			//after recalculating set mostRecentOrganizer to organizer used
+		{ 
+			int d = 0;
+		  try  
+		  {  
+		    d = Integer.parseInt(changeNodeDuration.getText());  
+		  }  
+		  catch(NumberFormatException nfe)  
+		  {  
+			  JOptionPane.showMessageDialog(null,"Duration is Not a Number","Could Not Analyze",JOptionPane.ERROR_MESSAGE);			
+		    return; 
+		  }  
+			boolean x = mostRecentOrganizer.reCalculate(changeNodeName.getText(), d);
+			if(!x)
+			{
+				JOptionPane.showMessageDialog(null,"Node was not found","Could Not Analyze",JOptionPane.ERROR_MESSAGE);			
+				return;
+			}
+			if(NodeEntryUIPanel.copOut)
+			{
+				ArrayList<PathData> criticalPaths = mostRecentOrganizer.getCritical();
+				
+				pathNames = new ArrayList<ArrayList<String>>(mostRecentOrganizer.getCriticalNames(criticalPaths));
+				
+				pathDuration = new ArrayList<Integer>(mostRecentOrganizer.getCriticalDuration(criticalPaths));
+			}
+			else
+			{
+				mostRecentOrganizer.preparePathList();
+				pathNames = new ArrayList<ArrayList<String>>(mostRecentOrganizer.getNames());
+				pathDuration = new ArrayList<Integer>(mostRecentOrganizer.getDurations());
+			}
+
 			JFrame newFrame=new JFrame();
 			newFrame.add(new AnalysisPanel(pathNames,pathDuration,mostRecentOrganizer));
 			newFrame.setSize(400, 800);

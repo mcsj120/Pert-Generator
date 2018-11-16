@@ -19,7 +19,7 @@ public class NodeEntryUIPanel extends JPanel {
 	private JCheckBox isStartingNode,showCriticalPaths;
 	private JLabel nameLabel,durationLabel,dependenciesLabel;
 	public JPanel entryPanel,entryPanel2,entryPanel3,buttonPanel; 
-	
+	public static boolean copOut = false;
 	//Constructor
 	public NodeEntryUIPanel() {
 		//Declare some things
@@ -328,6 +328,7 @@ public class NodeEntryUIPanel extends JPanel {
 				ArrayList<Integer> pathDurations;
 				if(!showCriticalPaths.isSelected())
 				{
+					copOut = false;
 					/*
 					 * Sets the pathList's value and organizes the pathList by value
 					 */
@@ -343,6 +344,8 @@ public class NodeEntryUIPanel extends JPanel {
 				}
 				else
 				{
+					copOut = true;
+					
 					ArrayList<PathData> criticalPaths = organizingList.getCritical();
 					
 					pathStrings = new ArrayList<ArrayList<String>>(organizingList.getCriticalNames(criticalPaths));
@@ -356,7 +359,7 @@ public class NodeEntryUIPanel extends JPanel {
 				analysisFrame.add(new AnalysisPanel(pathStrings,pathDurations, organizingList));
 				analysisFrame.setVisible(true);
 			}
-			NodeList.getInstance().resetList();
+			//NodeList.getInstance().resetList();
 		}
 
 	}
