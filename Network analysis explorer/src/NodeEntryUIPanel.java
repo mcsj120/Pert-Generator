@@ -275,7 +275,8 @@ public class NodeEntryUIPanel extends JPanel {
 					 * Display Message saying that there were multiple instances of a node
 					 */
 					{
-						JOptionPane.showMessageDialog(null,"Could not determine paths because multiple nodes had the same name","Could Not Analyze",JOptionPane.ERROR_MESSAGE);			
+						JOptionPane.showMessageDialog(null,"Could not determine paths because multiple nodes had the same name","Could Not Analyze",JOptionPane.ERROR_MESSAGE);
+						NodeList.getInstance().resetList();
 					}
 				}
 				if(Organizer.getErrorCode() == 1)
@@ -284,7 +285,8 @@ public class NodeEntryUIPanel extends JPanel {
 					 * Display Message saying that there were multiple instances of a node
 					 */
 					{
-						JOptionPane.showMessageDialog(null,"Could not determine paths because dependencies do not exist","Could Not Analyze",JOptionPane.ERROR_MESSAGE);			
+						JOptionPane.showMessageDialog(null,"Could not determine paths because dependencies do not exist","Could Not Analyze",JOptionPane.ERROR_MESSAGE);
+						NodeList.getInstance().resetList();
 					}
 				}
 				if(Organizer.getErrorCode() == 2)
@@ -293,7 +295,8 @@ public class NodeEntryUIPanel extends JPanel {
 					 * Display Message saying that there were multiple instances of a node
 					 */
 					{
-						JOptionPane.showMessageDialog(null,"A circular path of nodes exist","Could Not Analyze",JOptionPane.ERROR_MESSAGE);			
+						JOptionPane.showMessageDialog(null,"A circular path of nodes exist","Could Not Analyze",JOptionPane.ERROR_MESSAGE);		
+						NodeList.getInstance().resetList();
 					}
 				}
 				if(Organizer.getErrorCode() == 3)
@@ -302,7 +305,8 @@ public class NodeEntryUIPanel extends JPanel {
 					 * 
 					 */
 					{
-						JOptionPane.showMessageDialog(null,"All nodes are not properly connected to dependencies","Could Not Analyze",JOptionPane.ERROR_MESSAGE);			
+						JOptionPane.showMessageDialog(null,"All nodes are not properly connected to dependencies","Could Not Analyze",JOptionPane.ERROR_MESSAGE);	
+						NodeList.getInstance().resetList();
 					}
 				}
 				if(Organizer.getErrorCode() == 4)
@@ -311,7 +315,8 @@ public class NodeEntryUIPanel extends JPanel {
 					 * 
 					 */
 					{
-						JOptionPane.showMessageDialog(null,"No nodes have been added","Could Not Analyze",JOptionPane.ERROR_MESSAGE);			
+						JOptionPane.showMessageDialog(null,"No nodes have been added","Could Not Analyze",JOptionPane.ERROR_MESSAGE);	
+						NodeList.getInstance().resetList();
 					}
 				}
 			}
