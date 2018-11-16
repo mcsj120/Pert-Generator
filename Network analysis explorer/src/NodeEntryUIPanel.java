@@ -319,6 +319,16 @@ public class NodeEntryUIPanel extends JPanel {
 						NodeList.getInstance().resetList();
 					}
 				}
+				if(Organizer.getErrorCode() == 6)
+				{
+					/**
+					 * Display Message saying that there were multiple instances of a node
+					 */
+					{
+						JOptionPane.showMessageDialog(null,"Node heads not connected","Could Not Analyze",JOptionPane.ERROR_MESSAGE);
+						NodeList.getInstance().resetList();
+					}
+				}
 			}
 			
 			/*

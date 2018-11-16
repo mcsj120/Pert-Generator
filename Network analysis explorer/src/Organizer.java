@@ -307,6 +307,63 @@ public class Organizer
         }
     }
     
+    public void checkInBoth()
+    {
+    	ArrayList<Node> arr = new ArrayList<Node>();
+    	for(PathData x: pathList)
+    	{
+    		if(!arr.contains(x.path.get(0)))
+			{
+    			arr.add(x.path.get(0));
+			}
+    	}
+    	for(int i = 0; i<NodeList.getInstance().list.size(); i++)
+    	{
+    		Node A = NodeList.getInstance().list.get(i);
+    		ArrayList<Integer> found = new ArrayList<Integer>();
+    		boolean valid = true;
+    		for(int j = 0; i <arr.size(); i++)
+    		{
+    			int k = 0;
+    			found.add(k);
+    		}
+    		for(int j = 0; j < pathList.size(); j++)
+    		{
+    			for(int k = 0; k < pathList.get(j).path.size(); k++)
+    			{
+    				if(pathList.get(j).path.get(k).equals(A))
+    				{
+    					Node head = pathList.get(j).path.get(0);
+    					int index = 0;
+    					for(int l = 0; l< arr.size();l++)
+    					{
+    						if(head.equals(arr.get(l)))
+    						{
+    							found.set(l, 1);
+    						}
+    					}
+    				}
+    			}
+    		}
+    		for(int x: found)
+    		{
+    			if(x == 0)
+    			{
+    				valid = false;
+    				break;
+    			}
+    		}
+    		if(valid)
+    		{
+    			break;
+    		}
+    		
+    	}
+    	errorCode = 6;
+    	valid = false;
+    	
+    }
+    
 
 
 
@@ -373,6 +430,9 @@ public class Organizer
 	    		break;
 	    	case(4):
 	    		checkAllNodesConnected();
+	    		break;
+	    	case(5):
+	    		checkInBoth();
 	    		break;
 	    	default:
 	    		errorCode = -2;
