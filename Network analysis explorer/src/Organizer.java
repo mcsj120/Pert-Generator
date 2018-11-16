@@ -306,7 +306,7 @@ public class Organizer
 	        }
         }
     }
-    
+   /* 
     public void checkInBoth()
     {
     	ArrayList<Node> arr = new ArrayList<Node>();
@@ -363,7 +363,7 @@ public class Organizer
     	valid = false;
     	
     }
-    
+    */
 
 
 
@@ -431,9 +431,9 @@ public class Organizer
 	    	case(4):
 	    		checkAllNodesConnected();
 	    		break;
-	    	case(5):
+	    	/*case(5):
 	    		checkInBoth();
-	    		break;
+	    		break;*/
 	    	default:
 	    		errorCode = -2;
 	    		

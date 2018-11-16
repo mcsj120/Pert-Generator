@@ -279,7 +279,7 @@ public class NodeEntryUIPanel extends JPanel {
 						NodeList.getInstance().resetList();
 					}
 				}
-				if(Organizer.getErrorCode() == 1)
+				else if(Organizer.getErrorCode() == 1)
 				{
 					/**
 					 * Display Message saying that there were multiple instances of a node
@@ -289,7 +289,7 @@ public class NodeEntryUIPanel extends JPanel {
 						NodeList.getInstance().resetList();
 					}
 				}
-				if(Organizer.getErrorCode() == 2)
+				else if(Organizer.getErrorCode() == 2)
 				{
 					/**
 					 * Display Message saying that there were multiple instances of a node
@@ -299,7 +299,7 @@ public class NodeEntryUIPanel extends JPanel {
 						NodeList.getInstance().resetList();
 					}
 				}
-				if(Organizer.getErrorCode() == 3)
+				else if(Organizer.getErrorCode() == 3)
 				{
 					/**
 					 * 
@@ -309,7 +309,7 @@ public class NodeEntryUIPanel extends JPanel {
 						NodeList.getInstance().resetList();
 					}
 				}
-				if(Organizer.getErrorCode() == 4)
+				else if(Organizer.getErrorCode() == 4)
 				{
 					/**
 					 * 
@@ -319,16 +319,16 @@ public class NodeEntryUIPanel extends JPanel {
 						NodeList.getInstance().resetList();
 					}
 				}
-				if(Organizer.getErrorCode() == 6)
+				/*if(Organizer.getErrorCode() == 6)
 				{
 					/**
 					 * Display Message saying that there were multiple instances of a node
-					 */
+					 *
 					{
 						JOptionPane.showMessageDialog(null,"Node heads not connected","Could Not Analyze",JOptionPane.ERROR_MESSAGE);
 						NodeList.getInstance().resetList();
 					}
-				}
+				}*/
 			}
 			
 			/*
