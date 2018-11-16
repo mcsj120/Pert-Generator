@@ -20,6 +20,7 @@ public class NodeEntryUIPanel extends JPanel {
 	private JLabel nameLabel,durationLabel,dependenciesLabel;
 	public JPanel entryPanel,entryPanel2,entryPanel3,buttonPanel; 
 	public static boolean copOut = false;
+	public static JFrame analysisFrame = new JFrame();
 	//Constructor
 	public NodeEntryUIPanel() {
 		//Declare some things
@@ -353,7 +354,7 @@ public class NodeEntryUIPanel extends JPanel {
 					pathDurations = new ArrayList<Integer>(organizingList.getCriticalDuration(criticalPaths));
 				}
 				//UI for showing analysis
-				JFrame analysisFrame=new JFrame();
+				analysisFrame=new JFrame();
 				analysisFrame.setTitle("Analysis Results");
 				analysisFrame.setBounds(getX(), getY(), getWidth(), getHeight());
 				analysisFrame.add(new AnalysisPanel(pathStrings,pathDurations, organizingList));

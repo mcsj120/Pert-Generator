@@ -167,6 +167,8 @@ public class AnalysisPanel extends JPanel {
 			newFrame.setSize(400, 800);
 			newFrame.setVisible(true);
 			frameToClose.dispose();
+			NodeEntryUIPanel.analysisFrame.dispose();
+			NodeEntryUIPanel.analysisFrame = newFrame;
 		}
 		
 	}
